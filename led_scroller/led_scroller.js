@@ -100,10 +100,10 @@ function init() {
 		ctx = canvas.getContext('2d');
 
 		letters_blue = new Image();
-		letters_blue.src = 'letters-blue.jpg';
+		letters_blue.src = 'letters-blue.jpg?v=10';
 
 		letters_pink = new Image();
-		letters_pink.src = 'letters-pink.jpg';
+		letters_pink.src = 'letters-pink.jpg?v=10';
 		letters_pink.onload = startAnim;
 
 	} else {

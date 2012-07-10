@@ -1,0 +1,56 @@
+#text {
+	border: 5px solid #cfcfaa;
+	-webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1);
+	-moz-box-shadow: inset 0 0 8px rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1);
+	box-shadow: inset 0 0 8px rgba(0,0,0,0.1), 0 0 16px rgba(0,0,0,0.1);
+	background: rgba(255,255,255,0.5);
+	margin: 0 0 10px 0;
+	width: 1060px;
+	font-size: 2em;
+	padding: 5px;
+	margin-bottom: 30px;
+	margin-left: 30px;
+	margin-top: 5px;
+	color: #aaa;
+	margin-top: 15px;
+}
+
+canvas {
+	margin-left: 35px;
+	box-shadow: 4px 5px 37px rgba(0, 0, 0, 0.80);
+	-moz-box-shadow: 4px 5px 37px rgba(0, 0, 0, 0.80);
+	-webkit-box-shadow: 4px 5px 37px rgba(0, 0, 0, 0.80);
+}
+
+img {
+	border: 0px;
+}
+
+label {
+	cursor: pointer;
+}
+
+#imgLink {
+	padding-top: 5px;
+	float: right;
+	vertical-align: top;
+}
+
+#colour_container {
+	float: right;
+	margin-right: 0px;
+	margin-top: 5px;
+}
+
+#colour_container input {
+	vertical-align: top;
+	margin-top: 30px;
+}
+
+header, footer, #container {
+	width: 1200px;
+}
+
+footer {
+	margin-top: 25px;
+}

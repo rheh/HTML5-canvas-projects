@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>LED Scroller</title>
+		<script src='led_scroller.js'></script>
+		<link rel="stylesheet" type="text/css" href="led_scroller.css" media="all" />
+	</head>
+	<body onload='init();'>
+		<header>
+			<img src="prompt.jpg" alt='Enter your phrase here'/>
+			<div id='colour_container'>
+				<input type="radio" name="colour" id='pink' value="Pink" checked="checked" />
+				<label for="pink"><img src="pink.jpg" alt='Pink'/></label>
+				<input type="radio" name="colour" id='blue' value="Blue" />
+				<label for="blue"><img src="blue.jpg" alt='Blue'/></label>
+			</div>
+		</header>
+		<div id='container'>
+			<input type="text" id='text' value="There is only one difference between a madman and me. I am not mad." />
+			<a id='imgLink' href="javascript:startAnim();"> <img src="go.jpg" alt='Go'/> </a>
+		</div>
+		<canvas id="led" width="1200" height="350"></canvas>
+		<footer>
+			<img src="html5-canvas.jpg" alt='Drawn using HTML&apost;s canvas'/>
+		</footer>
+	</body>
+</html>
