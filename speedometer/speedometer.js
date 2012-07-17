@@ -4,6 +4,11 @@
     // this function is strict...
 }());
 
+var iCurrentSpeed = 20,
+	iTargetSpeed = 20,
+	bDecrement = null,
+	job = null;
+
 function degToRad(angle) {
 	// Degrees to radians
 	return ((angle * Math.PI) / 180);
@@ -452,17 +457,20 @@ function clearCanvas(options) {
 	applyDefaultContextSettings(options);
 }
 
-function draw(iSpeed) {
+function draw() {
 	/* Main entry point for drawing the speedometer
 	* If canvas is not support alert the user.
 	*/
-
+		
+	console.log('Target: ' + iTargetSpeed);
+	console.log('Current: ' + iCurrentSpeed);
+	
 	var canvas = document.getElementById('tutorial'),
 	    options = null;
 
 	// Canvas good?
 	if (canvas !== null && canvas.getContext) {
-		options = buildOptionsAsJSON(canvas, iSpeed);
+		options = buildOptionsAsJSON(canvas, iCurrentSpeed);
 
 	    // Clear canvas
 	    clearCanvas(options);
@@ -484,30 +492,47 @@ function draw(iSpeed) {
 
 		// Draw the needle and base
 		drawNeedle(options);
-
+		
 	} else {
 		alert("Canvas not supported by your browser!");
 	}
+	
+	if(iTargetSpeed == iCurrentSpeed) {
+		clearTimeout(job);
+		return;
+	} else if(iTargetSpeed < iCurrentSpeed) {
+		bDecrement = true;
+	} else if(iTargetSpeed > iCurrentSpeed) {
+		bDecrement = false;
+	}
+	
+	if(bDecrement) {
+		iCurrentSpeed = iCurrentSpeed - 5;
+	} else {
+		iCurrentSpeed = iCurrentSpeed + 5;
+	}
+	
+	job = setTimeout("draw()", 5);
 }
 
 function drawWithInputValue() {
 
-	var txtSpeed = document.getElementById('txtSpeed'),
-	    iSpeed = 0;
+	var txtSpeed = document.getElementById('txtSpeed');
 
 	if (txtSpeed !== null) {
 
-        iSpeed = txtSpeed.value;
+        iTargetSpeed = txtSpeed.value;
 
 		// Sanity checks
-		if (isNaN(iSpeed)) {
-			iSpeed = 0;
-		} else if (iSpeed < 0) {
-			iSpeed = 0;
-		} else if (iSpeed > 80) {
-			iSpeed = 80;
+		if (isNaN(iTargetSpeed)) {
+			iTargetSpeed = 0;
+		} else if (iTargetSpeed < 0) {
+			iTargetSpeed = 0;
+		} else if (iTargetSpeed > 80) {
+			iTargetSpeed = 80;
         }
 
-        draw(iSpeed);
+        job = setTimeout("draw()", 5);
+ 
     }
 }
