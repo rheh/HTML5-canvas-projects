@@ -507,9 +507,16 @@ function draw() {
 	}
 	
 	if(bDecrement) {
-		iCurrentSpeed = iCurrentSpeed - 5;
+		if(iCurrentSpeed - 10 < iTargetSpeed)
+			iCurrentSpeed = iCurrentSpeed - 1;
+		else
+			iCurrentSpeed = iCurrentSpeed - 5;
 	} else {
-		iCurrentSpeed = iCurrentSpeed + 5;
+	
+		if(iCurrentSpeed + 10 > iTargetSpeed)
+			iCurrentSpeed = iCurrentSpeed + 1;
+		else
+			iCurrentSpeed = iCurrentSpeed + 5;
 	}
 	
 	job = setTimeout("draw()", 5);
