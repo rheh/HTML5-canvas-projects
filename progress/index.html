@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>HTML5 Progress Slider</title>
+		<script src='progress.js'></script>
+		<link rel="stylesheet" type="text/css" href="progress.css" media="all" />
+	</head>
+	<body onload='init();'>
+		<canvas id="progress" width="670" height="161"></canvas>
+		<form id="drawForm">
+			<input id="slider" type="range" min="0" max="100" onchange="drawImage();" onkeyup="drawImage();"  />
+		</form>
+	</body>
+</html>
