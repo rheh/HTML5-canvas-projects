@@ -38,6 +38,9 @@
 	<div id="gamebody"></div>
 
 <script>
+(function(){
+
+/* Game overall */
 
 var Game = {
 	players: {},
@@ -56,6 +59,52 @@ var Game = {
 	gamebody: document.querySelector('#gamebody')
 };
 
+function initGame() {
+	createGrid();
+	createBlocks('food', Game.maxGoodies, 50);
+	createBlocks('barrier', Game.maxBarriers, 0);
+	createPlayer('bob');
+	createPlayer('joe');
+}
+
+function createGrid() {
+	Game.gamebody.style.width  = (Game.grid.x * Game.grid.tilesize) + 'px';
+	Game.gamebody.style.height = (Game.grid.y * Game.grid.tilesize) + 'px';
+	Game.gamebody.classList.add('active');
+	for(var i = 0; i < Game.grid.x; i++) {
+		Game.grid.tiles[i] = {};
+		for(var j = 0; j < Game.grid.y; j++) {
+			Game.grid.tiles[i][j] = false;
+		}
+	}
+}
+
+function getFreeRandomTile() {
+	var x = 0, 
+			y = 0;
+	do {
+		x = ~~(Math.random() * Game.grid.x),
+		y = ~~(Math.random() * Game.grid.y);
+	} while (Game.grid.tiles[x][y] !== false);
+	return {x:x, y:y}
+}
+
+function shiftwindow(x,y) {
+	window.scrollTo(
+		x * Game.grid.tilesize - Game.grid.tilesize, 
+		y * Game.grid.tilesize - Game.grid.tilesize
+	);
+}
+
+function kill(gameitem) {
+	console.log(gameitem);
+	gameitem.sprite.parentNode.removeChild(gameitem.sprite);
+	delete Game.players[gameitem.name];
+	Game.grid.tiles[gameitem.x][gameitem.y] = false;
+}
+
+/* Players */
+
 Player = function(){
 	this.name = '';
 	this.x = 0;
@@ -73,14 +122,6 @@ Player = function(){
 		this.moves++;
 		renderPlayer(this);
 	}
-};
-
-Block = function(){
-	this.x = 0;
-	this.y = 0;
-	this.value = 0;
-	this.type = null;
-	this.sprite = null;
 };
 
 function createPlayer(name) {
@@ -120,15 +161,28 @@ function renderPlayer(player) {
 	player.sprite.style.top  = (player.y * Game.grid.tilesize) + 'px';
 }
 
-function renderBlock(block) {
-	var sprite = document.createElement('div');
-	sprite.classList.add('sprite');
-	sprite.classList.add(block.type);
-	block.sprite = sprite;
-	block.sprite.dataset.value = block.value;
-	block.sprite.style.left = (block.x * Game.grid.tilesize) + 'px';
-	block.sprite.style.top  = (block.y * Game.grid.tilesize) + 'px';
-	gamebody.appendChild(sprite);
+function movePlayer(x, y) {
+	var player, test;
+	if (x >=0 && x < Game.grid.x && y >= 0 && y < Game.grid.y) {
+		player = Game.activePlayer;
+		if (player.health > 0) {
+		  test = Game.grid.tiles[x][y];
+			if (test) {
+				if (test.type === 'food'){
+					player.health += test.value + -Game.moveEnergy;
+					player.moveTo(x, y);
+					window.setTimeout(
+						function(){
+							kill(test);
+						}
+					, 500);
+		  	}
+			} else {
+				player.moveTo(x, y);
+				shiftwindow(x, y);
+			}
+		}
+	}
 }
 
 function switchPlayer(newplayer) {
@@ -139,6 +193,17 @@ function switchPlayer(newplayer) {
 	Game.activePlayer.sprite.classList.add('current');
 	shiftwindow(Game.activePlayer.x, Game.activePlayer.y);
 }
+
+/* Blocks */
+
+Block = function(){
+	this.x = 0;
+	this.y = 0;
+	this.value = 0;
+	this.type = null;
+	this.sprite = null;
+};
+
 function createBlocks(type, amount, value) {
 	var block;
 	while (amount--) {
@@ -153,27 +218,18 @@ function createBlocks(type, amount, value) {
 	}
 }
 
-function getFreeRandomTile() {
-	var x = 0, 
-			y = 0;
-	do {
-		x = ~~(Math.random() * Game.grid.x),
-		y = ~~(Math.random() * Game.grid.y);
-	} while (Game.grid.tiles[x][y] !== false);
-	return {x:x, y:y}
+function renderBlock(block) {
+	var sprite = document.createElement('div');
+	sprite.classList.add('sprite');
+	sprite.classList.add(block.type);
+	block.sprite = sprite;
+	block.sprite.dataset.value = block.value;
+	block.sprite.style.left = (block.x * Game.grid.tilesize) + 'px';
+	block.sprite.style.top  = (block.y * Game.grid.tilesize) + 'px';
+	gamebody.appendChild(sprite);
 }
 
-function createGrid() {
-	Game.gamebody.style.width  = (Game.grid.x * Game.grid.tilesize) + 'px';
-	Game.gamebody.style.height = (Game.grid.y * Game.grid.tilesize) + 'px';
-	Game.gamebody.classList.add('active');
-	for(var i = 0; i < Game.grid.x; i++) {
-		Game.grid.tiles[i] = {};
-		for(var j = 0; j < Game.grid.y; j++) {
-			Game.grid.tiles[i][j] = false;
-		}
-	}
-}
+/* Event Listeners */
 
 document.body.addEventListener('keydown', function(ev) {
 	var player = Game.activePlayer,
@@ -181,9 +237,7 @@ document.body.addEventListener('keydown', function(ev) {
 			y = player.y,
 			sx = x,
 			sy = y,
-			health = player.health,
-			movement = true,
-			test = false;
+			movement = true;
   switch (ev.which) {
     case 32: // space
     break;
@@ -203,34 +257,12 @@ document.body.addEventListener('keydown', function(ev) {
     	movement = false;
     break;
   }
-  if (movement && health > 0) {
-  	test = Game.grid.tiles[sx][sy];
-  	if (test) {
-  		if (test.type === 'food'){
-				player.health += test.value + -Game.moveEnergy;
-				player.moveTo(sx, sy);
-				kill(test);
-	  	}
-  	} else {
-			player.moveTo(sx, sy);
-			shiftwindow(sx,sy);
-		}
+  if (movement) {
+  	movePlayer(sx, sy);
 	}
 	ev.preventDefault();
 }, false);
 
-function shiftwindow(x,y) {
-	window.scrollTo(
-		x * Game.grid.tilesize - Game.grid.tilesize, 
-		y * Game.grid.tilesize - Game.grid.tilesize
-	);
-}
-
-function kill(gameitem) {
-	gameitem.sprite.parentNode.removeChild(gameitem.sprite);
-	delete Game.players[gameitem.name];
-	Game.grid.tiles[gameitem.x][gameitem.y] = false;
-}
 document.body.addEventListener('click', function(ev){
 	var t = ev.target;
 	if (t.dataset.name) {
@@ -238,15 +270,11 @@ document.body.addEventListener('click', function(ev){
 	}
 },false);
 
-function initGame() {
-	createGrid();
-	createBlocks('food', Game.maxGoodies, 50);
-	createBlocks('barrier', Game.maxBarriers, 0);
-	createPlayer('bob');
-	createPlayer('joe');
-}
+window.addEventListener('load', function(ev){
+	initGame();
+},false);
 
-initGame();
+})();
 </script>
 </body>
 </html>
