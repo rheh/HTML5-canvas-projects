@@ -4,6 +4,18 @@
     // this function is strict...
 }());
 
+// RequestAnimFrame: a browser API for getting smooth animations
+window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame || 
+        window.oRequestAnimationFrame || 
+        window.msRequestAnimationFrame ||
+    function(callback) {
+        window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
 // Globals
 var canvas = null,
     ctx = null,
@@ -12,11 +24,10 @@ var canvas = null,
     game_data = null,
     CAR_WIDTH = 100,
     CAR_HEIGHT = 37,
-    STEP_COUNT_MILLISECONDS = 200,
+    STEP_COUNT_MILLISECONDS =  1000 / 30,
     RACE_LENGTH = 20,
     RACE_FINISH_LINE_X = 770,
     iTime = 0,
-    job = null,
     iFinishPlace = 1;
 
 function clearCanvas() {
@@ -118,6 +129,8 @@ function drawCar(car) {
         CAR_WIDTH, CAR_HEIGHT,
         car.x + car.step, car.y,
         CAR_WIDTH, CAR_HEIGHT);
+        
+     drawText(car);
 }
 
 function drawCars() {
@@ -208,9 +221,13 @@ function updateDebugWindow() {
 
 function drawText(current_car) {
 
-    ctx.strokeStyle = "black";
-    ctx.font = "normal 12px Facebook Letter Faces";
-    ctx.strokeText(current_car.position, RACE_FINISH_LINE_X + current_car.step + 110, current_car.y + 25);
+    if(current_car.position !== null) {
+        
+        ctx.strokeStyle = "black";
+        ctx.font = "normal 12px Facebook Letter Faces";
+        ctx.strokeText(current_car.position, RACE_FINISH_LINE_X + current_car.step + 110, current_car.y + 25);
+    
+    }
       
 }
 
@@ -223,7 +240,7 @@ function moveCar(iCarCounter) {
         velocity = 2,
         position = getPositionAtTime(current_car.graph, percentageElapsed);
     
-    if(current_car.x + current_car.step < RACE_FINISH_LINE_X) {
+    if(current_car.x < RACE_FINISH_LINE_X) {
         
         current_car.x =  graphPosToScreenPos(position) + (velocity * seconds) + (1/2 * a * Math.pow(seconds, 2));
         
@@ -236,11 +253,7 @@ function moveCar(iCarCounter) {
             
             current_car.position = iFinishPlace++;
         }
-        
-        drawText(current_car);
-        
     }
-    
     
     drawCar(current_car);
 }
@@ -254,15 +267,9 @@ function initCars() {
 }
 
 function stopLoop() {
-    
-    if(job !== null) {
-      
-        clearInterval(job);
-        redrawRoadSection();
-        initCars();
-        iTime = 0; 
-        iFinishPlace = 1;
-    }
+ 
+    iTime = 0; 
+    iFinishPlace = 1; 
 }
 
 
@@ -282,18 +289,21 @@ function startRace() {
     
     if(iFinishPlace > 4) {
     
-        stopTimer();    
-    }
+        stopLoop();
+        
+    } else {
+        
+        iTime += STEP_COUNT_MILLISECONDS;
     
-    iTime += STEP_COUNT_MILLISECONDS;
+        requestAnimFrame(startRace);
+    }
 }
 
 function startLoop() {
     
     stopLoop();
     
-    job = setInterval(startRace, STEP_COUNT_MILLISECONDS);
-     
+    requestAnimFrame(startRace);
 }
 
 function loadCarSprite() {
