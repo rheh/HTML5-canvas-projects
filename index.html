@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+	body {background: #000;}
+	#gamebody {
+		background: green;
+		position: relative;
+	}
+	.sprite {
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		background: #ccc;
+		-webkit-transition: 0.5s;
+		-moz-transition: 0.5s;
+		transition: 0.5s;
+		z-index: 10;
+	}
+	.sprite[data-health^='50'] {
+		color: white;
+	}
+	.current {
+		background: red;
+	}
+	.food {
+		background: yellow;
+		z-index: 2;
+	}
+	.barrier {
+		background: black;
+	}
+	</style>
+</head>
+<body>
+	<div id="gamebody"></div>
+
+<script>
+(function(){
+
+/* Game overall */
+
+var Game = {
+	players: {},
+	activePlayer: null,
+	grid: {
+		tilesize: 50,
+		x: 20,
+		y: 20,
+		tiles: {}
+	},
+	maxGoodies: 20,
+	maxBarriers: 10,
+	startHealth: 100,
+	moveEnergy: -10,
+	sleepEnergy: 10,
+	gamebody: document.querySelector('#gamebody')
+};
+
+function initGame() {
+	createGrid();
+	createBlocks('food', Game.maxGoodies, 50);
+	createBlocks('barrier', Game.maxBarriers, 0);
+	createPlayer('bob');
+	createPlayer('joe');
+}
+
+function createGrid() {
+	Game.gamebody.style.width  = (Game.grid.x * Game.grid.tilesize) + 'px';
+	Game.gamebody.style.height = (Game.grid.y * Game.grid.tilesize) + 'px';
+	Game.gamebody.classList.add('active');
+	for(var i = 0; i < Game.grid.x; i++) {
+		Game.grid.tiles[i] = {};
+		for(var j = 0; j < Game.grid.y; j++) {
+			Game.grid.tiles[i][j] = false;
+		}
+	}
+}
+
+function getFreeRandomTile() {
+	var x = 0, 
+			y = 0;
+	do {
+		x = ~~(Math.random() * Game.grid.x),
+		y = ~~(Math.random() * Game.grid.y);
+	} while (Game.grid.tiles[x][y] !== false);
+	return {x:x, y:y}
+}
+
+function shiftwindow(x,y) {
+	window.scrollTo(
+		x * Game.grid.tilesize - Game.grid.tilesize, 
+		y * Game.grid.tilesize - Game.grid.tilesize
+	);
+}
+
+function kill(gameitem) {
+	console.log(gameitem);
+	gameitem.sprite.parentNode.removeChild(gameitem.sprite);
+	delete Game.players[gameitem.name];
+	Game.grid.tiles[gameitem.x][gameitem.y] = false;
+}
+
+/* Players */
+
+Player = function(){
+	this.name = '';
+	this.x = 0;
+	this.y = 0;
+	this.moves = 0;
+	this.type = null;
+	this.sprite = null;
+	this.health = Game.startHealth;
+	this.moveTo = function(x, y) {
+		this.health += Game.moveEnergy;
+		Game.grid.tiles[this.x][this.y] = false;
+		Game.grid.tiles[x][y] = this;
+		this.x = x;
+		this.y = y;
+		this.moves++;
+		renderPlayer(this);
+	}
+};
+
+function createPlayer(name) {
+	var player = new Player(),
+		  position = getFreeRandomTile();
+	player.name = name;
+	player.type = 'character';
+	player.x = position.x;
+	player.y = position.y;
+	player.health = Game.startHealth;
+	Game.grid.tiles[position.x][position.y] = player;
+	Game.players[player.name] = player;
+	renderPlayer(player);
+	switchPlayer(name);
+}
+
+function renderPlayer(player) {
+	if (!player.sprite) {
+		var sprite = document.createElement('div');
+		sprite.classList.add('sprite');
+		sprite.classList.add(player.type);
+		sprite.innerHTML = '<span>';
+		if (player.type === 'character') {
+			sprite.innerHTML += player.name;
+		}
+		sprite.innerHTML += '</span><output></output>';
+		gamebody.appendChild(sprite);
+		player.sprite = sprite;
+		player.sprite.healthlabel = sprite.querySelector('output');
+	}
+	player.sprite.dataset.health = player.health;
+	if (player.type === 'character') {
+		player.sprite.healthlabel.innerHTML = player.health;
+		player.sprite.dataset.name = player.name;
+	} 
+	player.sprite.style.left = (player.x * Game.grid.tilesize) + 'px';
+	player.sprite.style.top  = (player.y * Game.grid.tilesize) + 'px';
+}
+
+function movePlayer(x, y) {
+	var player, test;
+	if (x >=0 && x < Game.grid.x && y >= 0 && y < Game.grid.y) {
+		player = Game.activePlayer;
+		if (player.health > 0) {
+		  test = Game.grid.tiles[x][y];
+			if (test) {
+				if (test.type === 'food'){
+					player.health += test.value + -Game.moveEnergy;
+					player.moveTo(x, y);
+					window.setTimeout(
+						function(){
+							kill(test);
+						}
+					, 500);
+		  	}
+			} else {
+				player.moveTo(x, y);
+				shiftwindow(x, y);
+			}
+		}
+	}
+}
+
+function switchPlayer(newplayer) {
+	if (Game.activePlayer) {
+		Game.activePlayer.sprite.classList.remove('current');
+	}
+	Game.activePlayer = Game.players[newplayer];
+	Game.activePlayer.sprite.classList.add('current');
+	shiftwindow(Game.activePlayer.x, Game.activePlayer.y);
+}
+
+/* Blocks */
+
+Block = function(){
+	this.x = 0;
+	this.y = 0;
+	this.value = 0;
+	this.type = null;
+	this.sprite = null;
+};
+
+function createBlocks(type, amount, value) {
+	var block;
+	while (amount--) {
+		block = new Block();
+		block.type = type;
+		block.value = value;
+		position = getFreeRandomTile();
+		block.x = position.x;
+		block.y = position.y;
+		Game.grid.tiles[position.x][position.y] = block;
+		renderBlock(block);
+	}
+}
+
+function renderBlock(block) {
+	var sprite = document.createElement('div');
+	sprite.classList.add('sprite');
+	sprite.classList.add(block.type);
+	block.sprite = sprite;
+	block.sprite.dataset.value = block.value;
+	block.sprite.style.left = (block.x * Game.grid.tilesize) + 'px';
+	block.sprite.style.top  = (block.y * Game.grid.tilesize) + 'px';
+	gamebody.appendChild(sprite);
+}
+
+/* Event Listeners */
+
+document.body.addEventListener('keydown', function(ev) {
+	var player = Game.activePlayer,
+			x = player.x,
+			y = player.y,
+			sx = x,
+			sy = y,
+			movement = true;
+  switch (ev.which) {
+    case 32: // space
+    break;
+    case 39: // right
+    	sx = x + 1;
+    break;
+    case 37: // left
+    	sx = x - 1;
+    break;
+    case 38: // up
+    	sy = y - 1;
+    break;
+    case 40: // down
+    	sy = y + 1;
+    break;
+    default:
+    	movement = false;
+    break;
+  }
+  if (movement) {
+  	movePlayer(sx, sy);
+	}
+	ev.preventDefault();
+}, false);
+
+document.body.addEventListener('click', function(ev){
+	var t = ev.target;
+	if (t.dataset.name) {
+		switchPlayer(t.dataset.name);
+	}
+},false);
+
+window.addEventListener('load', function(ev){
+	initGame();
+},false);
+
+})();
+</script>
+</body>
+</html>
