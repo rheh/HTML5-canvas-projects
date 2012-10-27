@@ -129,7 +129,7 @@
     function loadBackground() {
         // Load the background
         bg = new Image();
-        bg.src = 'background.gif';
+        bg.src = 'background.jpg';
         bg.onload = loop;
     }
 
