@@ -18,10 +18,8 @@
         canvas = null,
         ctx = null,
         balls =  [],
-        bg = null;
-               
-    // Objects
-    var Ball = function (x, ballSettings) {
+        bg = null,
+        Ball = function (x, bg, ballSettings) {
         this.vy = 0;
         this.vx = 0;
         this.vyAdjust = -13;
@@ -29,11 +27,15 @@
         this.height = ballSettings.height;
         this.x = x;
         this.y = ballSettings.top;
-        this.image = ballSettings.image;
+        this.imagex = ballSettings.bgimagex;
+        this.imagey = ballSettings.bgimagey;
+        this.bg = bg;
         this.bounceFactor = ballSettings.factor;
         //Function to draw it
         this.draw = function () {
-            ctx.drawImage(this.image,
+            ctx.drawImage(this.bg,
+                this.imagex, this.imagey,
+                128, 128,
                 this.x, this.y,
                 this.width, this.height
             );
@@ -77,28 +79,36 @@
         var iImageRnd = Math.floor((Math.random() * 4) + 1),
             balls = {
                 1: {
-                    image: document.getElementById("basketballImage"),
+                    /* basketball */
+                    bgimagex: 0,
+                    bgimagey: 1205, 
                     factor: 0.8,
                     height: 50,
                     top: iBallTop,
                     width: 50
                 },
                 2: {
-                    image: document.getElementById("footballImage"),
+                    /* Medicen ball */
+                    bgimagex: 256,
+                    bgimagey: 1205, 
                     factor: 0.7,
                     top: iBallTop,
                     height: 50,
                     width: 50
                 },
                 3: {
-                    image: document.getElementById("tennisballImage"),
+                    /* Football */
+                    bgimagex: 384,
+                    bgimagey: 1205,
                     factor: 0.6,
                     top: iBallTop,
                     height: 20,
                     width: 20
                 },
                 4: {
-                    image: document.getElementById("cannonballImage"),
+                    /* Tennis */
+                    bgimagex: 128,
+                    bgimagey: 1205,
                     factor: 0.35,
                     top: -460,
                     width: 60,
@@ -106,6 +116,11 @@
                 }
             };
         return balls[iImageRnd];
+    }
+
+    function loop() {
+        update();
+        window.requestAnimFrame(loop);
     }
 
     function setUpBalls() {
@@ -116,27 +131,22 @@
         while (x < 950) {
             iBallTop = (0 - Math.floor((Math.random() * 400) + 1));
             ball = getRandomBallSettings(iBallTop);
-            balls.push(new Ball(x, ball));
+            balls.push(new Ball(x, bg, ball));
             x += ball.width + 10;
-        }
+        }   
+        loop();
     }
-
-    function loop() {
-        update();
-        window.requestAnimFrame(loop);
-    }
-
+    
     function loadBackground() {
         // Load the background
         bg = new Image();
-        bg.src = 'background.jpg';
-        bg.onload = loop;
+        bg.src = 'background.png';
+        bg.onload = setUpBalls;
     }
 
     function init() {
         canvas = document.getElementById('canvas');
         ctx = canvas.getContext('2d');
-        setUpBalls();
         loadBackground();
     }
 
