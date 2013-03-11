@@ -1,3 +1,8 @@
+/*jslint plusplus: true, sloppy: true, indent: 4 */
+( function() {"use strict";
+        // this function is strict...
+    }());
+    
 // Constants
 var iCANVAS_START_X_POS = 0,
 	iCANVAS_START_Y_POS = 0,
@@ -75,6 +80,7 @@ function drawLongitudeLines(ctx, iDEGREES_BETWEEN_GRID_LINES) {
 }
 
 function degreesOfLongitudeToScreenX(iDegreesOfLongitude) {
+    
 	// Make the value positive, so we can calculate the percentage
 	var iAdjustedDegreesOfLongitude = (iDegreesOfLongitude * 1) + 180,
 		iDegreesOfLongitudeToScreenX = 0;
@@ -94,18 +100,34 @@ function degreesOfLongitudeToScreenX(iDegreesOfLongitude) {
 	return iDegreesOfLongitudeToScreenX;
 }
 
+function degToRad(angle) {
+    // Degrees to radians
+    return ((angle * Math.PI) / 180);
+}
+
+function radToDeg(angle) {
+    // Radians to degree
+    return ((angle * 180) / Math.PI);
+}
+
 function drawLatitudeLines(ctx, iDEGREES_BETWEEN_GRID_LINES) {
+    
 	var iMIN_LONGITUDE = -180,
 		iMAX_LONGITUDE = 180,
 		iDegreesScreenY = 0,
 		iLineOfLongitude,
-		iDegreesScreenX;
+		iDegreesScreenX,
+		iCentralMeridian = degToRad(0),
+		iRadius = iMAP_HEIGHT / 2;
 
 	// Iterate around the longitude axis at the given interval
 	for (iLineOfLongitude = iMIN_LONGITUDE; iLineOfLongitude <= iMAX_LONGITUDE; iLineOfLongitude += iDEGREES_BETWEEN_GRID_LINES) {
 
 		// Convert the longitude value and move the pen to the start of the line
 		iDegreesScreenX = degreesOfLongitudeToScreenX(iLineOfLongitude);
+		
+		//iDegreesScreenX = iRadius * (degToRad(iLineOfLongitude) - (degToRad(iLineOfLongitude) * iCentralMeridian));
+		
 		ctx.moveTo(iDegreesScreenX, iMAP_START_Y_POS);
 
 		// Plot the line
@@ -137,7 +159,7 @@ function drawGraticule(ctx) {
 }
 
 function getMapData() {
-	// The map data!!	s
+	// The map data!
 	var json =	{
 		"shapes" : [[
 			{

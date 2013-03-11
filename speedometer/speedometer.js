@@ -270,7 +270,7 @@ function drawTextMarkers(options) {
 	    innerTickY = 0,
         iTick = 0,
         gaugeOptions = options.gaugeOptions,
-        iTickToPrint = 0;
+        iTickToPrint = 80;
 
 	applyDefaultContextSettings(options);
 
@@ -308,7 +308,7 @@ function drawTextMarkers(options) {
 		}
 
 		// MPH increase by 10 every 20 degrees
-		iTickToPrint += 10;
+		iTickToPrint += Math.round(2160 / 9);
 	}
 
     options.ctx.stroke();
