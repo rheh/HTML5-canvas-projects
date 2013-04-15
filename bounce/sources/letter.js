@@ -12,7 +12,6 @@ var Letter = function (x, bg, ballSettings) {
 	this.bg = bg;
 	this.bounceFactor = ballSettings.factor;
 	this.bounces = 0;
-	
 	this.draw = function () {
 		ctx.drawImage(this.bg,
 			this.imagex, this.imagey,
@@ -21,18 +20,15 @@ var Letter = function (x, bg, ballSettings) {
 			this.width, this.height
 		);
 	};
-	
 	this.impact = function () {
 		this.vy = this.vyAdjust;
 		this.bounces++;
 	};
-	
 	this.move = function () {
 		this.y += this.vy;
-		this.vy += 0.25; //gravity;
+		this.vy += 0.25; //gravity
 		// Bounce the ball when it hits the bottom
 		if(this.bounces > 1) {
-			
 			if ((this.y + this.height) > canvas.height + 200) {
 				this.bounces = 0;
 				this.vyAdjust = -13;

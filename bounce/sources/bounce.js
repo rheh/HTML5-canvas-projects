@@ -5,7 +5,6 @@ var canvas = null,
 	bg = null;
 
 (function () {
-    
     "use strict";
     // this function is strict...
     // RequestAnimFrame: a browser API for getting smooth animations
@@ -19,7 +18,6 @@ var canvas = null,
             window.setTimeout(callback, 1000 / 60);
         };
     })();
-	
 }());
 
 function clearCanvas() {
@@ -120,8 +118,10 @@ function loadBackground(callback) {
 	bg.onload = callback;
 }
 
-window.addEventListener('load', function (ev) {
+window.addEventListener('load', function () {
 	canvas = document.getElementById('canvas');
 	ctx = canvas.getContext('2d');
-	loadBackground(function() { setUpBalls(); });
+	loadBackground(function() {
+		setUpBalls();
+	});
 }, false);
