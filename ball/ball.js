@@ -1,6 +1,5 @@
 /*jslint plusplus: true, sloppy: true, indent: 4 */
 (function () {
-    
     "use strict";
     // this function is strict...
     // RequestAnimFrame: a browser API for getting smooth animations
@@ -81,7 +80,7 @@
                 1: {
                     /* basketball */
                     bgimagex: 0,
-                    bgimagey: 1205, 
+                    bgimagey: 1205,
                     factor: 0.8,
                     height: 50,
                     top: iBallTop,
@@ -90,7 +89,7 @@
                 2: {
                     /* Medicen ball */
                     bgimagex: 256,
-                    bgimagey: 1205, 
+                    bgimagey: 1205,
                     factor: 0.7,
                     top: iBallTop,
                     height: 50,
@@ -125,7 +124,6 @@
 
     function setUpBalls() {
         var iBallTop,
-            i,
             ball = null,
             x = 0;
         while (x < 950) {
@@ -133,10 +131,10 @@
             ball = getRandomBallSettings(iBallTop);
             balls.push(new Ball(x, bg, ball));
             x += ball.width + 10;
-        }   
+        }
         loop();
     }
-    
+
     function loadBackground() {
         // Load the background
         bg = new Image();
@@ -150,7 +148,7 @@
         loadBackground();
     }
 
-    window.addEventListener('load', function (ev) {
+    window.addEventListener('load', function () {
         init();
     }, false);
 
