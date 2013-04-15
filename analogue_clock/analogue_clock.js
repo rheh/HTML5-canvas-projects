@@ -50,7 +50,7 @@ function draw() {
 	// Save the current drawing state
 	ctx.save();
 
-	// Now move across and down half the 
+	// Now move across and down half way
 	ctx.translate(HEIGHT / 2, WIDTH / 2);
 
 	rotateAndDraw(minute_hand, getRequiredMinuteAngle(currentTime));
