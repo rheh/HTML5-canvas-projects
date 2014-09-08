@@ -1,15 +1,15 @@
-var canvas, 
-    ctx, 
-    renderItems = [], 
-    dragIdx, 
-    dragOffsetX, 
-    dragOffsetY, 
+var canvas,
+    ctx,
+    renderItems = [],
+    dragIdx,
+    dragOffsetX,
+    dragOffsetY,
     mouseHelper;
 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        drawStuff(); 
+        drawStuff();
     }
 
     function intersectHelper() {
@@ -49,7 +49,7 @@ var canvas,
 
                var point = points[counter];
 
-               if (this.pointInRect(point.x, point.y, 
+               if (this.pointInRect(point.x, point.y,
                     comparitor.getLeft(), comparitor.getTop(),
                     comparitor.getRight(), comparitor.getBottom()) === true) {
                         return true;
@@ -80,7 +80,7 @@ var canvas,
                 dx = mouseX - renderItems[i].getCenterX();
                 dy = mouseY - renderItems[i].getCenterY();
 
-                if (Math.sqrt((dx*dx) + (dy*dy)) < renderItems[i].getRadius()) {         
+                if (Math.sqrt((dx*dx) + (dy*dy)) < renderItems[i].getRadius()) {
 
                     dragIdx = i;
                     dragOffsetX = dx;
@@ -90,7 +90,7 @@ var canvas,
                     canvas.addEventListener("mousemove", mouseHelper.mousemove);
                     canvas.addEventListener("mouseup", mouseHelper.mouseup);
 
-                    drawStuff(); 
+                    drawStuff();
                     mouseHelper.update('move');
 
                     return;
@@ -108,7 +108,7 @@ var canvas,
 
             drawStuff(); 
         };
-        
+
         this.mouseup = function (e) {
 
             var mouseX = e.layerX - mouseHelper.canvas.offsetLeft,
@@ -125,7 +125,7 @@ var canvas,
 
             collisionCheckCallback();
             drawStuff(); 
-            
+
             dragIdx = -1;
         };
 
