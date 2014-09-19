@@ -132,7 +132,7 @@ var canvas,
 
     }
 
-    function Zero(x, y) {
+    function Thing(x, y) {
 
         this.x = x;
         this.y = y;
@@ -341,7 +341,7 @@ var canvas,
         resizeCanvas();
 
         for (var spawnCounter = 0, itemsCount = 5 + generateRandom(10); spawnCounter < itemsCount; spawnCounter++) {
-            renderItems.push(new Zero(generateRandom(canvas.width - 100), generateRandom(canvas.height - 100), mouseHelper));
+            renderItems.push(new Thing(generateRandom(canvas.width - 100), generateRandom(canvas.height - 100), mouseHelper));
             collisionCheckCallback();
         }
 
