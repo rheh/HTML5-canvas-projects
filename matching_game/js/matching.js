@@ -7,6 +7,13 @@ var tiles = new Array(),
 	iTimer = 0,
 	iInterval = 100,
 	iPeekTime = 3000;
+	/* we can have dictionary of hands matched with answers
+	for now lets use text */
+
+// Kamilla - get rid of flipping
+// Merisa - do main image file
+// Wendy - check for match
+// Usama - displayGame 
 
 function getRandomImageForTile() {
 
@@ -41,6 +48,11 @@ function createTile(iCounter) {
 	return curTile;
 }
 
+/* we need to randomly generate hand number from initMain and then grab 
+corrsponding answer. Then go to initTiles*/
+
+// two subfunctions, one to find main image and also find correct answer
+// pass to initTiles
 function initState() {
 
 	/* Reset the tile allocation count array.  This
@@ -58,24 +70,29 @@ function initState() {
 	
 }
 
+// this function finds 2 random answers. 
+// pass to displayGame to display images
 function initTiles() {
-
+// this is for the 3 tiles at the bottom (answerSet)
 	var iCounter = 0, 
 		curTile = null;
 
 	initState();
 	
-	// Randomly create twenty tiles and render to board
+	// we just want 3 tiles at the bottom
+
+	// lets put main image here and 3 cards, including right answer
 	for(iCounter = 0; iCounter < 20; iCounter++) {
 		
 		curTile = createTile(iCounter);
-		
+		// append to the board
 		$('#board').append(curTile.getHTML());
 		
 		tiles.push(curTile);
 	}	
 }
 
+// we need to remove this function
 function hideTiles(callback) {
 	
 	var iCounter = 0;
@@ -89,6 +106,7 @@ function hideTiles(callback) {
 	callback();
 }
 
+// we need to remove this function
 function revealTiles(callback) {
 	
 	var iCounter = 0,
@@ -135,6 +153,7 @@ function checkMatch() {
 
 	} else {
 		
+		// need to deactivate answer if clicked and wrong, use jquery to darken
 		if( tiles[iFlippedTile].getBackContentImage() !== tiles[iTileBeingFlippedId].getBackContentImage()) {
 			
 			setTimeout("tiles[" + iFlippedTile + "].revertFlip()", 2000);
@@ -166,13 +185,16 @@ function onPeekComplete() {
 }
 
 function onPeekStart() {
+	// this we don't want, we don't need flip
 	setTimeout("hideTiles( function() { onPeekComplete(); })",iPeekTime);
 }
 
 $(document).ready(function() {
 	
 	$('#startGameButton').click(function() {
-	
+	// this we want^ 
+
+	// change to initState
 		initTiles();
 		
 		setTimeout("revealTiles(function() { onPeekStart(); })",iInterval);
