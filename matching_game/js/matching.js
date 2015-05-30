@@ -3,6 +3,7 @@ var tiles = new Array(),
 	tileImages = new Array(1,2,3,4,5,6,7,8,9,10),
 	rightanswer = -1,
 	timeInterval,
+	answerPosition = -1,
 	answers = new Array();
 	
 var isMute = false;
@@ -27,21 +28,23 @@ options={
 // Wendy - display the images, check for match
 // Usama - displayGame 
 
-function createTile(iCounter, answerPostion) {
+function createTile(iCounter) {
 	var curTile =  new tile("tile" + iCounter);
 	
 	//generate non-repeating random numbers
 	do {
 		var iRandomImage = Math.floor((Math.random() * 10));
 	}
-	while (iRandomImage==answers[0]||iRandomImage==answers[1]||iRandomImage==answers[2]);
-	answers.push(iRandomImage);
+	while (iRandomImage==answers[0]||iRandomImage==answers[1]||iRandomImage==answers[2]||iRandomImage==rightanswer);
+	
 		
-	if (answerPostion == iCounter) {
+	if (answerPosition == iCounter) {
 		curTile.setBackContentImage("images/" +  rightanswer + ".jpg");
+		answers.push(rightanswer);
 	}
 	else {
 		curTile.setBackContentImage("images/" +  iRandomImage + ".jpg");
+		answers.push(iRandomImage);
 	}
 	return curTile;
 }
@@ -70,10 +73,10 @@ function initTiles() {
 	
 	// main tile
 	var mainImageValue = initMain();
-    var answerPostion = Math.floor(Math.random() * 3);  //determines which box should contain the answer
+    answerPosition = Math.floor(Math.random() * 3);  //determines which box should contain the answer
 	// put main image here and 3 cards, including right answer
 	for(iCounter = 0; iCounter < 3; iCounter++) {
-		curTile = createTile(iCounter, answerPostion);
+		curTile = createTile(iCounter);
 		// append to the board
 		$('#board').append(curTile.getHTML());
 		tiles.push(curTile);
@@ -86,6 +89,7 @@ function initMain() {
 	answers = new Array()
 	answers.push(i);
 	$('#audio').html('<button id="audio" style="float:right;height:10px;width:10px;background-color:black"></button>');
+	answers = new Array();
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
     return i;
 }
@@ -143,10 +147,30 @@ function progress(timeleft, timetotal, $element) {
 			progress(timeleft - 1, timetotal, $element);
 		} else {
 			//do game over stuff
+			timeUp();
 		}
 	}, 1000);
     
 };
+
+function timeUp() {
+	$("#sandTimer").show();
+	for (var i = 0; i < 3; i++) {
+		if (i!=answerPosition) {
+			$("#tile"+i).effect( "shake", {distance:5});	
+			$("#tile"+i).fadeTo("200", 0.33, function() {
+				this.attempted=true;
+			});
+		} else {
+			$("#tile"+i).effect( "bounce", {times:1, distance: 15}, 600, function() {
+				this.attempted=true;
+				setTimeout(function () {
+					startGame();
+				}, 2000);
+			});		
+		}
+	}
+}
 
 function getTileValue(s) {
 	var fileName = s.split('/');
@@ -156,6 +180,7 @@ function getTileValue(s) {
 
 
 function startGame() {
+	$("#sandTimer").hide();
 	initTiles();
 	//
 	getTileContent(
@@ -169,10 +194,11 @@ function startGame() {
 		}
 	);
 	clearInterval(timeInterval);
-	progress(10, 10, $('#progressBar'));
+	progress(2, 2, $('#progressBar'));
 }
 
 $(document).ready(function() {
+	$("#sandTimer").hide();
 	$('#startGameButton').click(function() {
 	// change to initState
 		startGame();
@@ -181,4 +207,3 @@ $(document).ready(function() {
 		isMute = !isMute; 
 	});
 });
-
