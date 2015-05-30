@@ -163,19 +163,16 @@ function playAudio(sAudio) {
 	}	
 }
 
-function checkMatch(clickedImageName) {
-	var tileValue = getTileValue(clickedImageName);
-	// need to deactivate answer if clicked and wrong, use jquery to darken
-	
+function checkMatch(clickedImage) {
+	var tileValue = getTileValue(clickedImage.innerHTML);
 	if (tileValue == rightanswer) {
 		alert('correct');
 		playAudio("mp3/applause.mp3");
 		$('#startGameButton').click();
-		//new game
 	} else {
 		alert('incorrect');
 		playAudio("mp3/no.mp3");
-		//darken image, deactivate?
+		$(clickedImage).fadeTo("400", 0.33);
 	}
 }
 
@@ -193,9 +190,10 @@ $(document).ready(function() {
 		getTileContent(
 			function() {
 				$("div.tile").click(function() {
-					checkMatch(this.innerHTML);
-					//alert("You clicked something");				  
-					//Should not be alert, should call checkMatch()
+					if(!this.attempted) {
+						checkMatch(this);
+					}
+					this.attempted = true;
 				});
 			}
 		);
