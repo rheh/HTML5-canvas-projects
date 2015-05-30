@@ -53,8 +53,8 @@ header div {
 
 .tile {
 	float:left;
-	width: 100px;
-	height: 100px;
+	width: 160px;
+	height: 150px;
 	margin-left: 10px;
 	margin-bottom: 10px;
 	border: 1px solid #cfcfcf;
