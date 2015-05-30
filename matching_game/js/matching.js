@@ -117,14 +117,14 @@ function checkMatch(clickedImage) {
 	var tileValue = getTileValue(clickedImage.innerHTML);
 	if (tileValue == rightanswer) {
 		$(clickedImage).css("border-color","green");
-		$(clickedImage).css("border-width","5px");
+		$(clickedImage).css("box-shadow","0px 0px 0px 4px green inset");
 		$(clickedImage).effect( "bounce", {times:1, distance: 15}, 600, function() {
 			startGame();
 		});		
 		playAudio("mp3/applause.mp3");
 	} else {
 		$(clickedImage).css("border-color","red");
-		$(clickedImage).css("border-width","5px");
+		$(clickedImage).css("box-shadow","0px 0px 0px 4px red inset");
 		$(clickedImage).effect( "shake", {distance:5});		
 		playAudio("mp3/no.mp3");
 		$(clickedImage).fadeTo("400", 0.33);
