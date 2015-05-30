@@ -116,11 +116,12 @@ function playAudio(sAudio) {
 function checkMatch(clickedImage) {
 	var tileValue = getTileValue(clickedImage.innerHTML);
 	if (tileValue == rightanswer) {
-		alert('correct');
+		$(clickedImage).effect( "bounce", {times:1, distance: 15}, 600, function() {
+			startGame();
+		});		
 		playAudio("mp3/applause.mp3");
-		$('#startGameButton').click();
 	} else {
-		alert('incorrect');
+		$(clickedImage).effect( "shake", {distance:5});		
 		playAudio("mp3/no.mp3");
 		$(clickedImage).fadeTo("400", 0.33);
 	}
@@ -132,20 +133,24 @@ function getTileValue(s) {
 	return sArray[0];
 }
 
+function startGame() {
+	initTiles();
+	//
+	getTileContent(
+		function() {
+			$("div.tile").click(function() {
+				if(!this.attempted) {
+					checkMatch(this);
+				}
+				this.attempted = true;
+			});
+		}
+	);
+}
+
 $(document).ready(function() {
 	$('#startGameButton').click(function() {
 	// change to initState
-		initTiles();
-		//
-		getTileContent(
-			function() {
-				$("div.tile").click(function() {
-					if(!this.attempted) {
-						checkMatch(this);
-					}
-					this.attempted = true;
-				});
-			}
-		);
+		startGame();
 	});
 });
