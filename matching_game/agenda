@@ -8,3 +8,11 @@
 -make it 100% width for tablet
 -put some padding around the timer
 -center the sand timer
+-Walk thru / demo creation
+-Design cleanup
+    Find proper hourglass position
+    Make obvious transition  for fingers
+    Slow down timer 
+    Audio icon (glyph icon) 
+-Data collection
+-Increase answers options for level 2
