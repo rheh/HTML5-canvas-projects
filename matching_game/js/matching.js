@@ -53,9 +53,9 @@ function createTile(iCounter) {
 		
 	tileAllocation[iRandomImage] = tileAllocation[iRandomImage] + 1;
 		
-	curTile.setFrontColor("tileColor" + Math.floor((Math.random() * 5) + 1));
-	curTile.setStartAt(500 * Math.floor((Math.random() * 5) + 1));
-	curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
+	//curTile.setFrontColor("tileColor" + Math.floor((Math.random() * 5) + 1));
+	//curTile.setStartAt(500 * Math.floor((Math.random() * 5) + 1));
+	//curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
 	curTile.setBackContentImage("images/" +  (iRandomImage + 1) + ".jpg");
 	
 	return curTile;
@@ -130,11 +130,10 @@ function hideTiles(callback) {
 // we need to remove this function
 function revealTiles(callback) {
 	
-	var iCounter = 0,
-		bTileNotFlipped = false;
+	var iCounter = 0;
 
 	for(iCounter = 0; iCounter < tiles.length; iCounter++) {
-		tiles[iCounter].flip();
+		$("#" + tiles[iCounter].id).html(tiles[iCounter].getBackContent());
 	}
 	
 }
@@ -191,7 +190,7 @@ function onPeekComplete() {
 
 function onPeekStart() {
 	// this we don't want, we don't need flip
-	setTimeout("hideTiles( function() { onPeekComplete(); })",iPeekTime);
+	//hideTiles( function() { onPeekComplete(); });
 }
 
 $(document).ready(function() {
@@ -202,7 +201,7 @@ $(document).ready(function() {
 	// change to initState
 		initTiles();
 		//
-		setTimeout("revealTiles(function() { onPeekStart(); })",iInterval);
+		revealTiles(function() { onPeekStart(); });
 
 	});
 });
