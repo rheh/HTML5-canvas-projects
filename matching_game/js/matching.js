@@ -46,8 +46,8 @@ function getRandomImageForTile() {
 	return iRandomImage;
 }
 
-function createTile(iCounter) {
-	
+function createTile(iCounter, answerPostion, mainImageValue) {
+	//alert(answerPostion + "this is the answer position and this is the value" + mainImageValue);
 	var curTile =  new tile("tile" + iCounter),
 		iRandomImage = getRandomImageForTile();
 		
@@ -56,8 +56,12 @@ function createTile(iCounter) {
 	//curTile.setFrontColor("tileColor" + Math.floor((Math.random() * 5) + 1));
 	//curTile.setStartAt(500 * Math.floor((Math.random() * 5) + 1));
 	//curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
-	curTile.setBackContentImage("images/" +  (iRandomImage + 1) + ".jpg");
-	
+	if (answerPostion == iCounter) {
+		curTile.setBackContentImage("images/" +  mainImageValue + ".jpg");
+	}
+	else {
+		curTile.setBackContentImage("images/" +  (iRandomImage + 1) + ".jpg");
+	}
 	return curTile;
 }
 
@@ -93,12 +97,11 @@ function initTiles() {
 	initState();
 	
 	// main tile
-	initMain();
-
-	
+	var mainImageValue = initMain();
+    var answerPostion = Math.floor(Math.random() * 3);  //determines which box should contain the answer
 	// put main image here and 3 cards, including right answer
 	for(iCounter = 0; iCounter < 3; iCounter++) {
-		curTile = createTile(iCounter);
+		curTile = createTile(iCounter, answerPostion, mainImageValue);
 		// append to the board
 		$('#board').append(curTile.getHTML());
 		tiles.push(curTile);
@@ -109,7 +112,7 @@ function initMain() {
 	var i = Math.floor((Math.random() * 10) + 1);
 	var rightanswer=options.fingers1[1];
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
-
+    return i;
 	// generate 2 random numbers
 	// var limit = 10,
  //    amount = 2,
