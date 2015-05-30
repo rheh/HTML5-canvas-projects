@@ -7,6 +7,7 @@ var tiles = new Array(),
 	iTimer = 0,
 	iInterval = 100,
 	rightanswer = -1,
+	answers = new Array(),
 	iPeekTime = 3000;
 	
 
@@ -30,39 +31,21 @@ options={
 // Wendy - display the images, check for match
 // Usama - displayGame 
 
-function getRandomImageForTile() {
-
-	var iRandomImage = Math.floor((Math.random() * tileAllocation.length)),
-		iMaxImageUse = 2;
+function createTile(iCounter, answerPostion) {
+	var curTile =  new tile("tile" + iCounter);
 	
-	while(tileAllocation[iRandomImage] >= iMaxImageUse ) {
-			
-		iRandomImage = iRandomImage + 1;
-			
-		if(iRandomImage >= tileAllocation.length) {
-				
-			iRandomImage = 0;
-		}
+	//generate non-repeating random numbers
+	do {
+		var iRandomImage = Math.floor((Math.random() * 10));
 	}
-	
-	return iRandomImage;
-}
-
-function createTile(iCounter, answerPostion, mainImageValue) {
-	//alert(answerPostion + "this is the answer position and this is the value" + mainImageValue);
-	var curTile =  new tile("tile" + iCounter),
-		iRandomImage = getRandomImageForTile();
+	while (iRandomImage==answers[0]||iRandomImage==answers[1]||iRandomImage==answers[2]);
+	answers.push(iRandomImage);
 		
-	tileAllocation[iRandomImage] = tileAllocation[iRandomImage] + 1;
-		
-	//curTile.setFrontColor("tileColor" + Math.floor((Math.random() * 5) + 1));
-	//curTile.setStartAt(500 * Math.floor((Math.random() * 5) + 1));
-	//curTile.setFlipMethod(flips[Math.floor((Math.random() * 3) + 1)]);
 	if (answerPostion == iCounter) {
-		curTile.setBackContentImage("images/" +  mainImageValue + ".jpg");
+		curTile.setBackContentImage("images/" +  rightanswer + ".jpg");
 	}
 	else {
-		curTile.setBackContentImage("images/" +  (iRandomImage + 1) + ".jpg");
+		curTile.setBackContentImage("images/" +  iRandomImage + ".jpg");
 	}
 	return curTile;
 }
@@ -73,14 +56,6 @@ corrsponding answer. Then go to initTiles*/
 // two subfunctions, one to find main image and also find correct answer
 // pass to initTiles
 function initState() {
-
-	/* Reset the tile allocation count array.  This
-		is used to ensure each image is only 
-		allocated twice.
-	*/
-
-	// since 10 different numbers, array size 10
-	tileAllocation = new Array(0,0,0,0,0,0,0,0,0,0);
 	
 	while(tiles.length > 0) {
 		tiles.pop();
@@ -103,45 +78,20 @@ function initTiles() {
     var answerPostion = Math.floor(Math.random() * 3);  //determines which box should contain the answer
 	// put main image here and 3 cards, including right answer
 	for(iCounter = 0; iCounter < 3; iCounter++) {
-		curTile = createTile(iCounter, answerPostion, mainImageValue);
+		curTile = createTile(iCounter, answerPostion);
 		// append to the board
 		$('#board').append(curTile.getHTML());
 		tiles.push(curTile);
-	}	
+	}
 }
 
 function initMain() {
 	var i = Math.floor((Math.random() * 10) + 1);
 	rightanswer=i;
+	answers = new Array()
+	answers.push(i);
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
     return i;
-	// generate 2 random numbers
-	// var limit = 10,
- //    amount = 2,
- //    lower_bound = 1,
- //    upper_bound = 10,
- //    optionsKey = [];
-
-	// if (amount > limit) limit = amount;
-	// 	while (optionsKey.length < limit) {
-	// 		while (optionsKey.)
-	//     var random_number = Math.round(Math.random()*(upper_bound - lower_bound) + lower_bound);
-	//     if (optionsKey.indexOf(random_number) == -1) { 
-	//         optionsKey.push( random_number );
-	//     }
-	// }
-	// for (var j=0;j<2;++j) {
-	// 	var random_number=Math.round(Math.random()*(10-1)+1);
-	// 	optionsKey.push(random_number);
-	// 	var random_number=Math.round(Math.random()*(10-1)+1);
-	// 	if (random_number==optionsKey[0]) {
-	// 		var random_number=Math.round(Math.random()*(10-1)+1);
-	// 		optionsKey
-	// 	}
-	// 	optionsKey.push(random_number);
-	// }
-	// console.log(optionsKey[1]);
-	// console.log(optionsKey[2]);
 }
 
 function getTileContent(callback) {	
