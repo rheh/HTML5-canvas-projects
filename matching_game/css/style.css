@@ -30,14 +30,14 @@ header div {
 
 #main {
 	padding-top: 50px;
-    width: 570px;
+    width: 585px;
     height: 250px;
 	background-color: rgb(228, 223, 208);
 }
 
 #board {
 	padding-top: 10px;
-    width: 570px;
+    width: 585px;
     height: 200px;
 	background-color: rgb(228, 223, 208);
 }
@@ -112,8 +112,8 @@ header div {
 .tile img {
 	display: block;
 	margin: 0 auto;
-	padding-top: 25px;
-	width: 50px;
+	/*padding-top: 25px;
+	width: 50px;*/
 }
 
 .tileColor1 {
