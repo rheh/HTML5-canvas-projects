@@ -30,7 +30,14 @@ header div {
 #board {
 	padding-top: 10px;
     width: 570px;
-    height: 450px;
+    height: 200px;
+	background-color: rgb(228, 223, 208);
+}
+
+#main {
+	padding-top: 10px;
+    width: 570px;
+    height: 330px;
 	background-color: rgb(228, 223, 208);
 }
 
@@ -53,7 +60,7 @@ header div {
 
 .tile {
 	float:left;
-	width: 160px;
+	width: 172px;
 	height: 150px;
 	margin-left: 10px;
 	margin-bottom: 10px;
