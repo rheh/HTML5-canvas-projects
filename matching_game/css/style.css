@@ -126,8 +126,9 @@ header div {
 .tile img {
 	display: block;
 	margin: 0 auto;
-	/*padding-top: 25px;
-	width: 50px;*/
+	padding-top: 5px;
+	width: 165px;
+	height: 140px;
 }
 
 .tileColor1 {
