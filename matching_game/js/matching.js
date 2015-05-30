@@ -129,7 +129,7 @@ function progress(timeleft, timetotal, $element) {
     var progressBarWidth = timeleft * $element.width() / timetotal;
     $element
         .find('div')
-        .animate({ width: progressBarWidth }, 500)
+        .animate({ width: progressBarWidth }, timeleft == timetotal ? 0 : 1000, "linear")
     
 	timeInterval = setInterval(function() {
 		clearInterval(timeInterval);
