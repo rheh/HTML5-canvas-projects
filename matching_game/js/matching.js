@@ -109,8 +109,7 @@ function initTiles() {
 function initMain() {
 	var i = Math.floor((Math.random() * 10) + 1);
 	var rightanswer=options.fingers1[1];
-	console.log(rightanswer);
-	$('#main').append('<center><img src="images/fingers'+i+'.jpg"></center>');
+	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
 }
 
 
