@@ -27,6 +27,13 @@ header div {
 	padding-top: 15px;
 }
 
+#main {
+	padding-top: 50px;
+    width: 570px;
+    height: 250px;
+	background-color: rgb(228, 223, 208);
+}
+
 #board {
 	padding-top: 10px;
     width: 570px;
@@ -34,11 +41,34 @@ header div {
 	background-color: rgb(228, 223, 208);
 }
 
-#main {
-	padding-top: 50px;
-    width: 570px;
-    height: 250px;
+#board1 {
+	padding-top: 10px;
+    width: 140px;
+    height: 200px;
+    display:inline-block;
+    float: left;
 	background-color: rgb(228, 223, 208);
+	padding-left: 50px;
+}
+
+#board2 {
+	padding-top: 10px;
+    width: 140px;
+    height: 200px;
+    display:inline-block;
+    float: left;
+	background-color: rgb(228, 223, 208);
+	padding-left: 50px;
+}
+
+#board3 {
+	padding-top: 10px;
+    width: 140px;
+    height: 200px;
+    display:inline-block;
+    float: left;
+	background-color: rgb(228, 223, 208);
+	padding-left: 50px;
 }
 
 header div {
