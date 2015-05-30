@@ -9,16 +9,16 @@ var tiles = new Array(),
 	iPeekTime = 3000;
 
 options={
-	"fingers1":["fingers1","answer1"],
-	"fingers2":["fingers2","answer2"],
-	"fingers3":["fingers3","answer3"],
-	"fingers4":["fingers4","answer4"],
-	"fingers5":["fingers5","answer5"],
-	"fingers6":["fingers6","answer6"],
-	"fingers7":["fingers7","answer7"],
-	"fingers8":["fingers8","answer8"],
-	"fingers9":["fingers9","answer9"],
-	"fingers10":["fingers10","answer10"]
+	"fingers1":["fingers1","1"],
+	"fingers2":["fingers2","2"],
+	"fingers3":["fingers3","3"],
+	"fingers4":["fingers4","4"],
+	"fingers5":["fingers5","5"],
+	"fingers6":["fingers6","6"],
+	"fingers7":["fingers7","7"],
+	"fingers8":["fingers8","8"],
+	"fingers9":["fingers9","9"],
+	"fingers10":["fingers10","10"]
 }
 	/* we can have dictionary of hands matched with answers
 	for now lets use text */
@@ -95,7 +95,7 @@ function initTiles() {
 	
 	// main tile
 
-
+	initMain();
 	// puts 3 tiles
 	// lets put main image here and 3 cards, including right answer
 	for(iCounter = 0; iCounter < 3; iCounter++) {
@@ -105,6 +105,14 @@ function initTiles() {
 		tiles.push(curTile);
 	}	
 }
+
+function initMain() {
+	var i = Math.floor((Math.random() * 10) + 1);
+	var rightanswer=options.fingers1[1];
+	console.log(rightanswer);
+	$('#main').append('<center><img src="images/fingers'+i+'.jpg"></center>');
+}
+
 
 // we need to remove this function
 function hideTiles(callback) {
