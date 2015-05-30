@@ -113,25 +113,9 @@ function revealTiles(callback) {
 		bTileNotFlipped = false;
 
 	for(iCounter = 0; iCounter < tiles.length; iCounter++) {
-		
-		if(tiles[iCounter].getFlipped() === false) {
-		
-			if(iTimer > tiles[iCounter].getStartAt()) {
-				tiles[iCounter].flip();
-			}
-			else {
-				bTileNotFlipped = true;
-			}
-		}
+		tiles[iCounter].flip();
 	}
 	
-	iTimer = iTimer + iInterval;
-
-	if(bTileNotFlipped === true) {
-		setTimeout("revealTiles(" + callback + ")",iInterval);
-	} else {
-		callback();
-	}
 }
 
 function playAudio(sAudio) {
