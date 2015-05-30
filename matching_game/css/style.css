@@ -32,14 +32,14 @@ header div {
 	padding-top: 50px;
     width: 585px;
     height: 250px;
-	background-color: rgb(255, 158, 158);
+	background-color: rgb(248, 250, 212);
 }
 
 #board {
 	padding-top: 10px;
     width: 585px;
     height: 200px;
-	background-color: rgb(255, 158, 158);
+	background-color: rgb(248, 250, 212);
 }
 
 #board1 {
@@ -103,7 +103,7 @@ header div {
 #progressBar {
   width: 585px;
   height: 22px;
-  background-color: #0A5F44;
+  background-color: #B2CDCC;
 }
 
 #progressBar div {
