@@ -142,11 +142,12 @@ function initMain() {
 	// console.log(optionsKey[2]);
 }
 
-function getTileContent() {	
+function getTileContent(callback) {	
 	var iCounter = 0;
 	for(iCounter = 0; iCounter < tiles.length; iCounter++) {
 		$("#" + tiles[iCounter].id).html(tiles[iCounter].getBackContent());
 	}
+	callback();
 }
 
 function playAudio(sAudio) {
@@ -185,6 +186,7 @@ function checkMatch() {
 	}
 }
 
+/*
 function onPeekComplete() {
 
 	$('div.tile').click(function() {
@@ -198,16 +200,19 @@ function onPeekComplete() {
 	  
 	});
 }
+*/
 
 $(document).ready(function() {
-	
 	$('#startGameButton').click(function() {
-	// this we want^ 
-
 	// change to initState
 		initTiles();
 		//
-		getTileContent();
-
+		getTileContent(
+			function() {
+				$("div.tile").click(function() {
+					alert("You clicked something");				  
+				});
+			}
+		);
 	});
 });
