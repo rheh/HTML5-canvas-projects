@@ -5,6 +5,7 @@ var tiles = new Array(),
 	timeInterval,
 	answers = new Array();
 	
+var isMute = false;
 
 options={
 	"fingers1":["fingers1","1"],
@@ -84,6 +85,7 @@ function initMain() {
 	rightanswer=i;
 	answers = new Array()
 	answers.push(i);
+	$('#audio').html('<button id="audio" style="float:right;height:10px;width:10px;background-color:black"></button>');
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
     return i;
 }
@@ -97,14 +99,13 @@ function getTileContent(callback) {
 }
 
 function playAudio(sAudio) {
-	
-	var audioElement = document.getElementById('audioEngine');
-			
-	if(audioElement !== null) {
+		
+	var audioElement = document.getElementById('audioEngine'); 
 
+	if(audioElement !== null) {
 		audioElement.src = sAudio;
 		audioElement.play();
-	}	
+	}
 }
 
 function checkMatch(clickedImage) {
@@ -115,13 +116,18 @@ function checkMatch(clickedImage) {
 		$(clickedImage).effect( "bounce", {times:1, distance: 15}, 600, function() {
 			startGame();
 		});		
-		playAudio("mp3/applause.mp3");
+		if (isMute == false) {
+			playAudio("mp3/applause.mp3");	
+		}
 	} else {
 		$(clickedImage).css("border-color","red");
 		$(clickedImage).css("box-shadow","0px 0px 0px 4px red inset");
 		$(clickedImage).effect( "shake", {distance:5});		
-		playAudio("mp3/no.mp3");
+		if (isMute == false) {
+			playAudio("mp3/no.mp3");
+		}
 		$(clickedImage).fadeTo("400", 0.33);
+		
 	}
 }
 
@@ -166,11 +172,13 @@ function startGame() {
 	progress(10, 10, $('#progressBar'));
 }
 
-
-
 $(document).ready(function() {
 	$('#startGameButton').click(function() {
 	// change to initState
 		startGame();
 	});
+	$("#audio").click(function() {
+		isMute = !isMute; 
+	});
 });
+
