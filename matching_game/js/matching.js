@@ -72,7 +72,6 @@ function initState() {
 		is used to ensure each image is only 
 		allocated twice.
 	*/
-	
 
 	// since 10 different numbers, array size 10
 	tileAllocation = new Array(0,0,0,0,0,0,0,0,0,0);
@@ -94,10 +93,10 @@ function initTiles() {
 	initState();
 	
 	// main tile
-
 	initMain();
-	// puts 3 tiles
-	// lets put main image here and 3 cards, including right answer
+
+	
+	// put main image here and 3 cards, including right answer
 	for(iCounter = 0; iCounter < 3; iCounter++) {
 		curTile = createTile(iCounter);
 		// append to the board
@@ -110,6 +109,34 @@ function initMain() {
 	var i = Math.floor((Math.random() * 10) + 1);
 	var rightanswer=options.fingers1[1];
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
+
+	// generate 2 random numbers
+	// var limit = 10,
+ //    amount = 2,
+ //    lower_bound = 1,
+ //    upper_bound = 10,
+ //    optionsKey = [];
+
+	// if (amount > limit) limit = amount;
+	// 	while (optionsKey.length < limit) {
+	// 		while (optionsKey.)
+	//     var random_number = Math.round(Math.random()*(upper_bound - lower_bound) + lower_bound);
+	//     if (optionsKey.indexOf(random_number) == -1) { 
+	//         optionsKey.push( random_number );
+	//     }
+	// }
+	// for (var j=0;j<2;++j) {
+	// 	var random_number=Math.round(Math.random()*(10-1)+1);
+	// 	optionsKey.push(random_number);
+	// 	var random_number=Math.round(Math.random()*(10-1)+1);
+	// 	if (random_number==optionsKey[0]) {
+	// 		var random_number=Math.round(Math.random()*(10-1)+1);
+	// 		optionsKey
+	// 	}
+	// 	optionsKey.push(random_number);
+	// }
+	// console.log(optionsKey[1]);
+	// console.log(optionsKey[2]);
 }
 
 
