@@ -1,14 +1,9 @@
 var tiles = new Array(),
-	flips = new Array('tb', 'bt', 'lr', 'rl' ),
-	iFlippedTile = null,
 	iTileBeingFlippedId = null,
 	tileImages = new Array(1,2,3,4,5,6,7,8,9,10),
-	tileAllocation = null,
-	iTimer = 0,
-	iInterval = 100,
 	rightanswer = -1,
-	answers = new Array(),
-	iPeekTime = 3000;
+	timeInterval,
+	answers = new Array();
 	
 
 options={
@@ -62,7 +57,6 @@ function initState() {
 	}
 	
 	$('#board').empty();
-	iTimer = 0;
 }
 
 // this function finds 2 random answers. 
@@ -131,11 +125,29 @@ function checkMatch(clickedImage) {
 	}
 }
 
+function progress(timeleft, timetotal, $element) {
+    var progressBarWidth = timeleft * $element.width() / timetotal;
+    $element
+        .find('div')
+        .animate({ width: progressBarWidth }, 500)
+    
+	timeInterval = setInterval(function() {
+		clearInterval(timeInterval);
+		if(timeleft>0) {
+			progress(timeleft - 1, timetotal, $element);
+		} else {
+			//do game over stuff
+		}
+	}, 1000);
+    
+};
+
 function getTileValue(s) {
 	var fileName = s.split('/');
 	var sArray = fileName[1].split('.');
 	return sArray[0];
 }
+
 
 function startGame() {
 	initTiles();
@@ -150,7 +162,11 @@ function startGame() {
 			});
 		}
 	);
+	clearInterval(timeInterval);
+	progress(10, 10, $('#progressBar'));
 }
+
+
 
 $(document).ready(function() {
 	$('#startGameButton').click(function() {

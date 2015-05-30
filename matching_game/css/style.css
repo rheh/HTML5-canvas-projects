@@ -100,6 +100,20 @@ header div {
     transition: all 0.3s ease 0s;
 }
 
+#progressBar {
+  width: 570px;
+  height: 22px;
+  background-color: #0A5F44;
+}
+
+#progressBar div {
+  height: 100%;
+  text-align: right;
+  line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+  width: 0;
+  background-color: #CBEA00;
+}
+
 .tile {
 	float:left;
 	width: 175px;
