@@ -9,21 +9,19 @@ var tiles = new Array(),
 	iPeekTime = 3000;
 
 options={
-	"fingers1":["fingers1","answer1"],
-	"fingers2":["fingers2","answer2"],
-	"fingers3":["fingers3","answer3"],
-	"fingers4":["fingers4","answer4"],
-	"fingers5":["fingers5","answer5"],
-	"fingers6":["fingers6","answer6"],
-	"fingers7":["fingers7","answer7"],
-	"fingers8":["fingers8","answer8"],
-	"fingers9":["fingers9","answer9"],
-	"fingers10":["fingers10","answer10"]
+	"fingers1":["fingers1","1"],
+	"fingers2":["fingers2","2"],
+	"fingers3":["fingers3","3"],
+	"fingers4":["fingers4","4"],
+	"fingers5":["fingers5","5"],
+	"fingers6":["fingers6","6"],
+	"fingers7":["fingers7","7"],
+	"fingers8":["fingers8","8"],
+	"fingers9":["fingers9","9"],
+	"fingers10":["fingers10","10"]
 }
-	/* we can have dictionary of hands matched with answers
-	for now lets use text */
 
-// Kamilla - get rid of flipping
+// Kamilla - get rid of flipping (done)
 // Merisa - init main image 
 // Wendy - display the images, check for match
 // Usama - displayGame 
@@ -72,7 +70,6 @@ function initState() {
 		is used to ensure each image is only 
 		allocated twice.
 	*/
-	
 
 	// since 10 different numbers, array size 10
 	tileAllocation = new Array(0,0,0,0,0,0,0,0,0,0);
@@ -85,7 +82,7 @@ function initState() {
 	iTimer = 0;
 }
 
-// this function finds 2 random answers. 
+// this function finds 2 random answers
 // pass to displayGame to display images
 function initTiles() {
 	var iCounter = 0, 
@@ -94,7 +91,7 @@ function initTiles() {
 	initState();
 	
 	// main tile
-
+	initMain();
 
 	// puts 3 tiles
 	// lets put main image here and 3 cards, including right answer
@@ -104,6 +101,12 @@ function initTiles() {
 		$('#board').append(curTile.getHTML());
 		tiles.push(curTile);
 	}	
+}
+
+function initMain() {
+	var i = Math.floor((Math.random() * 10) + 1);
+	console.log(i);
+	$('#main').append('<center><img src="images/fingers1.jpg"></center>');
 }
 
 // we need to remove this function
