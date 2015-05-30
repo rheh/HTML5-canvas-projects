@@ -29,21 +29,21 @@ header div {
 
 #board {
 	padding-top: 10px;
-    width: 630px;
+    width: 570px;
     height: 200px;
 	background-color: rgb(228, 223, 208);
 }
 
 #main {
 	padding-top: 10px;
-    width: 630px;
-    height: 300px;
+    width: 570px;
+    height: 330px;
 	background-color: rgb(228, 223, 208);
 }
 
 header div {
 	text-align: center;
-	font-family: 'Arial';
+	font-family: 'Cherry Swash', cursive;
 	font-weight: 400;
 	font-size: 30px;
 	color: rgb(20, 166, 0);
@@ -51,7 +51,7 @@ header div {
 
 #startGameButton
 {
-	font-family: 'Arial';
+	font-family: 'Cherry Swash', cursive;
 	font-weight: 400;
 	color: rgb(20, 166, 0);
 	padding-bottom: 10px;
@@ -60,7 +60,7 @@ header div {
 
 .tile {
 	float:left;
-	width: 194px;
+	width: 172px;
 	height: 150px;
 	margin-left: 10px;
 	margin-bottom: 10px;
