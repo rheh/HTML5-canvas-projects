@@ -1,5 +1,4 @@
 function tile(id) {
-	
 	this.id = id;
 	this.backContentImage = null;
 
