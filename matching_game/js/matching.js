@@ -7,12 +7,25 @@ var tiles = new Array(),
 	iTimer = 0,
 	iInterval = 100,
 	iPeekTime = 3000;
+
+options={
+	"fingers1":["fingers1","answer1"],
+	"fingers2":["fingers2","answer2"],
+	"fingers3":["fingers3","answer3"],
+	"fingers4":["fingers4","answer4"],
+	"fingers5":["fingers5","answer5"],
+	"fingers6":["fingers6","answer6"],
+	"fingers7":["fingers7","answer7"],
+	"fingers8":["fingers8","answer8"],
+	"fingers9":["fingers9","answer9"],
+	"fingers10":["fingers10","answer10"]
+}
 	/* we can have dictionary of hands matched with answers
 	for now lets use text */
 
 // Kamilla - get rid of flipping
-// Merisa - do main image file
-// Wendy - check for match
+// Merisa - init main image 
+// Wendy - display the images, check for match
 // Usama - displayGame 
 
 function getRandomImageForTile() {
@@ -59,6 +72,9 @@ function initState() {
 		is used to ensure each image is only 
 		allocated twice.
 	*/
+	
+
+	// since 10 different numbers, array size 10
 	tileAllocation = new Array(0,0,0,0,0,0,0,0,0,0);
 	
 	while(tiles.length > 0) {
@@ -67,27 +83,25 @@ function initState() {
 	
 	$('#board').empty();
 	iTimer = 0;
-	
 }
 
 // this function finds 2 random answers. 
 // pass to displayGame to display images
 function initTiles() {
-// this is for the 3 tiles at the bottom (answerSet)
 	var iCounter = 0, 
 		curTile = null;
 
 	initState();
 	
-	// we just want 3 tiles at the bottom
+	// main tile
 
+
+	// puts 3 tiles
 	// lets put main image here and 3 cards, including right answer
-	for(iCounter = 0; iCounter < 20; iCounter++) {
-		
+	for(iCounter = 0; iCounter < 3; iCounter++) {
 		curTile = createTile(iCounter);
 		// append to the board
 		$('#board').append(curTile.getHTML());
-		
 		tiles.push(curTile);
 	}	
 }
@@ -180,7 +194,7 @@ $(document).ready(function() {
 
 	// change to initState
 		initTiles();
-		
+		//
 		setTimeout("revealTiles(function() { onPeekStart(); })",iInterval);
 
 	});
