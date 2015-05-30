@@ -142,30 +142,11 @@ function initMain() {
 	// console.log(optionsKey[2]);
 }
 
-
-// we need to remove this function
-function hideTiles(callback) {
-	
+function getTileContent() {	
 	var iCounter = 0;
-
-	for(iCounter = 0; iCounter < tiles.length; iCounter++) {
-		
-		tiles[iCounter].revertFlip();
-
-	}
-	
-	callback();
-}
-
-// we need to remove this function
-function revealTiles(callback) {
-	
-	var iCounter = 0;
-
 	for(iCounter = 0; iCounter < tiles.length; iCounter++) {
 		$("#" + tiles[iCounter].id).html(tiles[iCounter].getBackContent());
 	}
-	
 }
 
 function playAudio(sAudio) {
@@ -218,11 +199,6 @@ function onPeekComplete() {
 	});
 }
 
-function onPeekStart() {
-	// this we don't want, we don't need flip
-	//hideTiles( function() { onPeekComplete(); });
-}
-
 $(document).ready(function() {
 	
 	$('#startGameButton').click(function() {
@@ -231,7 +207,7 @@ $(document).ready(function() {
 	// change to initState
 		initTiles();
 		//
-		revealTiles(function() { onPeekStart(); });
+		getTileContent();
 
 	});
 });
