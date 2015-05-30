@@ -6,7 +6,9 @@ var tiles = new Array(),
 	tileAllocation = null,
 	iTimer = 0,
 	iInterval = 100,
+	rightanswer = -1,
 	iPeekTime = 3000;
+	
 
 options={
 	"fingers1":["fingers1","1"],
@@ -110,7 +112,7 @@ function initTiles() {
 
 function initMain() {
 	var i = Math.floor((Math.random() * 10) + 1);
-	var rightanswer=options.fingers1[1];
+	rightanswer=i;
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
     return i;
 	// generate 2 random numbers
@@ -161,46 +163,27 @@ function playAudio(sAudio) {
 	}	
 }
 
-function checkMatch() {
+function checkMatch(clickedImageName) {
+	var tileValue = getTileValue(clickedImageName);
+	// need to deactivate answer if clicked and wrong, use jquery to darken
 	
-	if(iFlippedTile === null) {
-		  
-		iFlippedTile = iTileBeingFlippedId;
-
+	if (tileValue == rightanswer) {
+		alert('correct');
+		playAudio("mp3/applause.mp3");
+		$('#startGameButton').click();
+		//new game
 	} else {
-		
-		// need to deactivate answer if clicked and wrong, use jquery to darken
-		if( tiles[iFlippedTile].getBackContentImage() !== tiles[iTileBeingFlippedId].getBackContentImage()) {
-			
-			setTimeout("tiles[" + iFlippedTile + "].revertFlip()", 2000);
-			setTimeout("tiles[" + iTileBeingFlippedId + "].revertFlip()", 2000);
-			
-			playAudio("mp3/no.mp3");
-
-		} else {
-			playAudio("mp3/applause.mp3");
-		}
-
-		iFlippedTile = null;
-		iTileBeingFlippedId = null;
+		alert('incorrect');
+		playAudio("mp3/no.mp3");
+		//darken image, deactivate?
 	}
 }
 
-/*
-function onPeekComplete() {
-
-	$('div.tile').click(function() {
-	
-		iTileBeingFlippedId = this.id.substring("tile".length);
-	
-		if(tiles[iTileBeingFlippedId].getFlipped() === false) {
-			tiles[iTileBeingFlippedId].addFlipCompleteCallback(function() { checkMatch(); });
-			tiles[iTileBeingFlippedId].flip();
-		}
-	  
-	});
+function getTileValue(s) {
+	var fileName = s.split('/');
+	var sArray = fileName[1].split('.');
+	return sArray[0];
 }
-*/
 
 $(document).ready(function() {
 	$('#startGameButton').click(function() {
@@ -210,7 +193,9 @@ $(document).ready(function() {
 		getTileContent(
 			function() {
 				$("div.tile").click(function() {
-					alert("You clicked something");				  
+					checkMatch(this.innerHTML);
+					//alert("You clicked something");				  
+					//Should not be alert, should call checkMatch()
 				});
 			}
 		);
