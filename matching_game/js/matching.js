@@ -194,7 +194,7 @@ function startGame() {
 		}
 	);
 	clearInterval(timeInterval);
-	progress(2, 2, $('#progressBar'));
+	progress(10, 10, $('#progressBar'));
 }
 
 $(document).ready(function() {
