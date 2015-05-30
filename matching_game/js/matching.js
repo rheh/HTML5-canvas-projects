@@ -116,11 +116,15 @@ function playAudio(sAudio) {
 function checkMatch(clickedImage) {
 	var tileValue = getTileValue(clickedImage.innerHTML);
 	if (tileValue == rightanswer) {
+		$(clickedImage).css("border-color","green");
+		$(clickedImage).css("border-width","5px");
 		$(clickedImage).effect( "bounce", {times:1, distance: 15}, 600, function() {
 			startGame();
 		});		
 		playAudio("mp3/applause.mp3");
 	} else {
+		$(clickedImage).css("border-color","red");
+		$(clickedImage).css("border-width","5px");
 		$(clickedImage).effect( "shake", {distance:5});		
 		playAudio("mp3/no.mp3");
 		$(clickedImage).fadeTo("400", 0.33);
