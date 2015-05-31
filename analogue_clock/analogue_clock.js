@@ -8,6 +8,16 @@ var clock_face = null,
 
 var HEIGHT = 500;
 var WIDTH = 500;
+var HALF_HEIGHT = HEIGHT / 2;
+var HALF_WIDTH = WIDTH / 2;
+var FPS = 15;
+
+var CIRCLE_TO_HOUR_RATIO = 360 / 12;
+var CIRCLE_TO_MINUTES_RATIO = 360 / 60;
+var CIRCLE_TO_MS_RATIO = 360 / 60000;
+
+var DEGRESS_TO_RADIANS = Math.PI / 180;
+var RADIANS_TO_DEGREES = 180 / Math.PI;
 
 function clearCanvas() {
 	 // clear canvas
@@ -16,27 +26,27 @@ function clearCanvas() {
 
 function getRequiredMinuteAngle(currentTime) {
 	// Calculate the expected angle
-	return Math.floor(((360 / 60) * currentTime.getMinutes()), 0);
+	return Math.floor(CIRCLE_TO_MINUTES_RATIO * currentTime.getMinutes(), 0);
 }
 
 function getRequiredHourAngle(currentTime) {
 	// Calculate the expected angle
-	return Math.floor(((360 / 12) * currentTime.getHours()), 0);
+	return Math.floor(CIRCLE_TO_HOUR_RATIO * currentTime.getHours(), 0);
 }
 
 function getRequiredSecondAngle(currentTime) {
 	// Calculate the expected angle
-	return Math.floor(((360 / 60) * currentTime.getSeconds()), 0);
+	var secondsToMilliseconds = currentTime.getSeconds() * 1000;
+	var totalMilliseconds = currentTime.getMilliseconds() + secondsToMilliseconds;
+	return Math.floor(CIRCLE_TO_MS_RATIO * totalMilliseconds, 0);
 }
 
 function rotateAndDraw(image, angle) {
 	// Rotate around this point
-	ctx.rotate(angle * (Math.PI / 180));
+	ctx.rotate(angle * DEGRESS_TO_RADIANS);
 
 	// Draw the image back and up
-	ctx.drawImage(image, 0 - HEIGHT / 2, 0 - WIDTH / 2);
-
-	ctx.rotate(-angle * (Math.PI / 180));
+	ctx.drawImage(image, 0 - HALF_HEIGHT, 0 - HALF_WIDTH);
 }
 
 function draw() {
@@ -51,21 +61,21 @@ function draw() {
 	ctx.save();
 
 	// Now move across and down half way
-	ctx.translate(HEIGHT / 2, WIDTH / 2);
+	ctx.translate(HALF_HEIGHT, HALF_WIDTH);
 
 	rotateAndDraw(minute_hand, getRequiredMinuteAngle(currentTime));
-
 	rotateAndDraw(hour_hand, getRequiredHourAngle(currentTime));
-
 	rotateAndDraw(second_hand, getRequiredSecondAngle(currentTime));
 
 	// Restore the previous drawing state
 	ctx.restore();
+
+	window.requestAnimationFrame(draw, 1000 / FPS);
 }
 
 function imgLoaded() {
 	// Image loaded event complete.  Start the timer
-	setInterval(draw, 500);
+	window.requestAnimationFrame(draw, 1000 / FPS);
 }
 
 function init() {
