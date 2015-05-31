@@ -36,10 +36,10 @@ header div {
 }
 
 #board {
-	padding-top: 10px;
     width: 585px;
     height: 200px;
 	background-color: rgb(248, 250, 212);
+	background: url(../images/mainImage.jpg) 100% 100% no-repeat rgb(249,249,249); 
 }
 
 #board1 {
@@ -82,7 +82,7 @@ header div {
 
 #startGameButton
 {
-	background: #a67900;
+	background: #4DA6D5;
     color: #fff;
     font-family: Sans-serif;
     font-size: 20px;
@@ -91,7 +91,7 @@ header div {
     line-height: 60px;
 	display: block;
     margin: 0px auto;
-	margin-top: 80px;
+	margin-top: 30px;
 	padding: 10px 10px;
 	border-radius: 5px;
     text-align: center;
@@ -100,6 +100,25 @@ header div {
     transition: all 0.3s ease 0s;
 }
 
+#startDemoButton
+{
+	background: #4DA6D5;
+    color: #fff;
+    font-family: Sans-serif;
+    font-size: 20px;
+    height: 60px;
+    width: 150px;
+    line-height: 60px;
+	display: block;
+    margin: 0px auto;
+	margin-top: 30px;
+	padding: 10px 10px;
+	border-radius: 5px;
+    text-align: center;
+    border: 0;
+	text-decoration: none;
+    transition: all 0.3s ease 0s;
+}
 #progressBar {
   width: 585px;
   height: 22px;
