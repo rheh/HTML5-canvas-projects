@@ -182,7 +182,7 @@ function getTileValue(s) {
 function startGame() {
 	$("#sandTimer").hide();
 	initTiles();
-	//
+
 	getTileContent(
 		function() {
 			$("div.tile").click(function() {
