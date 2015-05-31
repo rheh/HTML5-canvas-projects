@@ -37,6 +37,16 @@ header div {
 	background-color: rgb(248, 250, 212);
 }
 
+#audio {
+	height: 52px;
+	width: 52px;
+	z-index: 1;
+	position: absolute;
+	float: right;
+	right: 2%;
+	padding-top:5px;
+}
+
 #board {
 	padding-top: 10px;
     width: 100%;
@@ -101,7 +111,7 @@ header div {
 #progressBar {
   width: 100%;
   height: 22px;
-  background-color: #B2CDCC;
+  background-color: #C7D5D5;
 }
 
 #progressBar div {
@@ -109,7 +119,7 @@ header div {
   text-align: right;
   line-height: 22px; /* same as #progressBar height if we want text middle aligned */
   width: 0;
-  background-color: #CBEA00;
+  background-color: #63A5A2;
 }
 
 .tile {
@@ -125,7 +135,7 @@ header div {
 	display: block;
 	margin: 0 auto;
 	padding-top: 5px;
-	width: 165px;
+	width: 185px;
 	height: 140px;
 }
 

@@ -88,7 +88,7 @@ function initMain() {
 	rightanswer=i;
 	answers = new Array()
 	answers.push(i);
-	$('#audio').html('<button id="audio" style="float:right;height:10px;width:10px;background-color:black"></button>');
+	$('#audio').html('<button id="audio"><img src="images/noSoundIcon.png"></button>');
 	answers = new Array();
 	$('#main').html('<center><img src="images/fingers'+i+'.jpg"></center>');
     return i;
