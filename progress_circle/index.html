@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Simple Canvas Windows 10 Style Progress Widget</title>
+		<script src='./victor.min.js'></script>
+		<script src='./progress.js'></script>
+    <style>
+
+      input {
+        width: 400px;
+      }
+
+      .container {
+        display: flex;
+      }
+
+      .column {
+        flex: 1;
+      }
+
+    </style>
+    <script>
+
+      var progress1 = null;
+      var progress2 = null;
+      var progress3 = null;
+
+      function init() {
+        progress1 = new Progress();
+
+        progress1
+          .init('progress1')
+          .setBackgroundColour('transparent')
+          .setArcBackgroundColour('transparent')
+          .setForegroundColour('#7CFC00')
+          .setProgress(76);
+
+        progress2 = new Progress();
+
+        progress2
+          .init('progress2')
+          .setProgress(55);
+ 
+        progress3 = new Progress();
+
+        progress3
+          .init('progress3')
+          .setArcBackgroundColour('#11052F')
+          .setForegroundColour('#FF054F')
+          .setBackgroundImage('bg.jpg')
+          .setProgress(22);
+      }
+
+      function sliderChange1(amount) {
+        progress1.setProgress(amount);
+      }
+
+      function sliderChange2(amount) {
+        progress2.setProgress(amount);
+      }
+
+      function sliderChange3(amount) {
+        progress3.setProgress(amount);
+      }
+
+    </script>
+	</head>
+	<body onload='init()'>
+    <div class="container">
+
+      <div class="column">
+        <canvas id="progress1" width="380" height="380"></canvas>
+        <div>
+          <div>Use the slider to modify the progress</div>
+          <input value="76" min="0" max="100" id="progressSlider1" type="range" onchange="sliderChange1(this.value)"/>
+        </div>
+      </div> 
+
+      <div class="column">
+        <canvas id="progress2" width="380" height="380"></canvas>
+        <div>
+          <div>Use the slider to modify the progress</div>
+          <input value="55" min="0" max="100" id="progressSlider2" type="range" onchange="sliderChange2(this.value)"/>
+        </div>
+      </div> 
+
+      <div class="column">
+        <canvas id="progress3" width="380" height="380"></canvas>
+        <div>
+          <div>Use the slider to modify the progress</div>
+          <input value="22" min="0" max="100" id="progressSlider3" type="range" onchange="sliderChange3(this.value)"/>
+        </div>
+      </div>
+
+    </div>
+	</body>
+</html>
