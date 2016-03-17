@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas Rocks</title>
+    <style>
+
+	#canvas {
+	    position: absolute;
+	    top: 0px;
+	    left: 0px;
+	    cursor: none;
+	    background-color: black;
+	}
+
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <script>
+
+	function Thing(mapX, mapY, x, y, canvas) {
+	   this.x = x;
+	   this.y = y;
+	   this.mapX = mapX;
+	   this.mapY = mapY;
+	   this.height = 50;
+	   this.width = 50;
+	   this.direction = Math.floor((Math.random()*359));
+	   this.speed = Math.floor((Math.random()*50) + 5);
+	   this.canvas = canvas;
+       };
+
+	Thing.prototype.draw = function(ctx, sprite) {
+
+	    ctx.drawImage(sprite, this.mapX, this.mapY,
+		90, 90,
+		this.x, this.y,
+		this.width, this.height);
+
+	};
+
+	var ctx, canvas, sprites = [], sprite = null;
+
+	function loadSprite() {
+
+	    sprite = new Image();
+	    sprite.src = 'sprite.png';
+
+	}
+
+	function createThings() {
+
+	    var i;
+
+	    spriteMap =  [
+		[0, 120], [140, 120], [270, 120] ,[270, 250],
+		[400, 120], [400, 250], [530, 250], [530, 120]
+	    ];
+
+	    for(i = 0; i < 10; i++) {
+		sprites.push(createThing(spriteMap));
+	    }
+	}
+
+	function createThing(spriteMap) {
+
+	    var cur, map = spriteMap[Math.floor(Math.random() *
+			    (spriteMap.length - 1))];
+
+	    cur = new Thing(
+		map[0],
+		map[1],
+		Math.floor((Math.random()*canvas.width)+1),
+		Math.floor((Math.random()*canvas.height)+1),
+		canvas
+	    );
+
+	    return cur;
+	}
+
+	function init() {
+
+	   canvas = document.getElementById('canvas');
+	   ctx = canvas.getContext('2d');
+	   resizeCanvas();
+	   loadSprite();
+	   createThings();	    
+	}
+	
+	function start() {
+	  
+	    for(i = 0; i < sprites.length; i++) {
+		sprites[i].draw(ctx, sprite);
+	    }
+
+	    setTimeout(start, 100);
+	}
+
+	function resizeCanvas() {
+
+	   ctx.canvas.width = window.innerWidth;
+	   ctx.canvas.height = window.innerHeight;
+	
+	}
+
+	// resize the canvas to fill browser window dynamically
+	window.addEventListener('resize', resizeCanvas, false);
+
+	// Start the process
+	window.onload = function() {
+	   init();
+	   start();
+	};
+
+    </script>
+</body>
+</html>
