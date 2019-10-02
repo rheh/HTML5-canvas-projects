@@ -1,7 +1,7 @@
 var job = null;
 var bSwingRight = true;
-var sCurrentLeft = "imgLeft5";
-var sCurrentRight = "imgRight5";
+var sCurrentLeft = "imgLeft6";
+var sCurrentRight = "imgRight6";
 
 function swing() {
 
@@ -15,7 +15,7 @@ function swing() {
 
 	bSwingRight = !bSwingRight;
 
-	job = setTimeout(swing, 1000);
+	job = setTimeout(swing, 1200);
 }
 
 
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 		bSwingRight = !bSwingRight;
 
-		var currentValue = this.value * 5;
+		var currentValue = this.value * 6;
 
 		$('#swing').removeClass(sCurrentRight);
 		$('#swing').removeClass(sCurrentLeft);
