@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Packing</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div id="range-slider">
+        <input type="range" id="angle" name="angle"
+               min="1" max="360" value="5">
+        <label for="angle">Angle</label>
+    </div>
+
+    <span id="display-line-intersection-angle"></span>
+
+    <div class="switches">
+
+         <label id="skeleton-lines" class="switch">
+            <input id="skeleton-lines-input" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+
+          <label id="label-text" for="skeleton-lines">Show skeleton-lines</label>
+    
+          <label id="circle-line-intersections" class="switch">
+            <input id="circle-line-intersections-input" type="checkbox">
+            <span class="slider round"></span>
+          </label>
+
+          <label id="label-text" for="circle-line-intersections">Show circle-line-intersections</label>
+
+
+    </div>
+
+
+    <canvas></canvas>
+
+    <script type="text/javascript" src="http://www.kevlindev.com/gui/math/intersection/Intersection.js"></script>
+    <script type="text/javascript" src="http://www.kevlindev.com/gui/math/point2d/Point2D.js"></script>
+    <script src="./canvas.js"></script>
+
+</body>
+</html>
