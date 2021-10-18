@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Canvas Thermometer </title>
+		<script src='thermometer.js'></script>
+	</head>
+	<body onload='draw();'>
+		<div>
+			<canvas id="thermometer" width="800" height="800"></canvas>
+			<div style="position: absolute; top: 250px; left: 250px;">
+				<form id="drawTemp">
+					<input type="text" alt="Type Here" id="temp" name="temp" value="-30" maxlength="3"/>
+					<br>
+					<input id="defaultSlider" type="range" min="-30" max="50" onchange="setTempAndDraw();" />
+					<br>
+					<input type="button" value="Draw" onclick="draw();">
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

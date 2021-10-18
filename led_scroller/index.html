@@ -19,7 +19,7 @@
 	</header>
 	<div id='container'>
 		<input type="text" id='text' value="There is only one difference between a madman and me. I am not mad." />
-		<a id='imgLink' href="javascript:startAnim();"> <img src="go.jpg" alt='Go' /> </a>
+		<a id='imgLink' href="javascript:startAnim(document);"> <img src="go.jpg" alt='Go' /> </a>
 	</div>
 	<canvas id="led" width="1200" height="343"></canvas>
 	<footer>
@@ -27,7 +27,6 @@
 	</footer>
 </body>
 <script>
-	(function () {
 		var letters_pink = null,
 			letters_blue = null,
 			sMessage = "",
@@ -141,8 +140,9 @@
 			}
 		}
 
-		init();
-	})();
+		(function() {
+			init();
+		})();
 </script>
 
 </html>
