@@ -23,10 +23,11 @@ To view the examples:
 [Dartboard](https://rheh.github.io/HTML5-canvas-projects/dartboard/).
 [Drag and Drop](https://rheh.github.io/HTML5-canvas-projects/drag_drop/).
 [Flip Clock](https://rheh.github.io/HTML5-canvas-projects/flip_clock/).
-[LED scroll](https://rheh.github.io/HTML5-canvas-projects/ed_scrollerv2/).
+[LED scroll](https://rheh.github.io/HTML5-canvas-projects/led_scrollerv2/).
 [Map](https://rheh.github.io/HTML5-canvas-projects/map/).
 [Matching Game](https://rheh.github.io/HTML5-canvas-projects/matching_game/).
 [Motion](https://rheh.github.io/HTML5-canvas-projects/motion/).
+[Particles](https://rheh.github.io/HTML5-canvas-projects/particles/).
 [Progress](https://rheh.github.io/HTML5-canvas-projects/progress/).
 [Progress Circle](https://rheh.github.io/HTML5-canvas-projects/progress_circle/).
 [Sand Timer](https://rheh.github.io/HTML5-canvas-projects/sand_timer/).
