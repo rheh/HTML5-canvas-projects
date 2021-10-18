@@ -11,4 +11,8 @@ To run with node:
 npx http-server  ./
 ```
 
+To view the examples:
+Analogue Clock/[Duck Duck Go](https://rheh.github.io/HTML5-canvas-projects/analogue_clock/).
+Animated Background/[Duck Duck Go](https://rheh.github.io/HTML5-canvas-projects/animated_background/).
+
 Happy Coding :D
