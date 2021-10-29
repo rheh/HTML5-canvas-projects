@@ -7,6 +7,8 @@ npx http-server  ./
 ```
 
 To view the examples:
+
+[3D Cubes](https://rheh.github.io/HTML5-canvas-projects/cube/).
 [Analogue Clock](https://rheh.github.io/HTML5-canvas-projects/analogue_clock/).
 [Animated Background](https://rheh.github.io/HTML5-canvas-projects/animated_background/).
 [Ball](https://rheh.github.io/HTML5-canvas-projects/ball/).
