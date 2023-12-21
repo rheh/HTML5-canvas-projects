@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #password {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Generator</h1>
+        <label for="length">Password Length:</label>
+        <input type="number" id="length" value="12" min="4" max="50">
+        <br>
+        <label for="uppercase">Include Uppercase:</label>
+        <input type="checkbox" id="uppercase" checked>
+        <br>
+        <label for="lowercase">Include Lowercase:</label>
+        <input type="checkbox" id="lowercase" checked>
+        <br>
+        <label for="numbers">Include Numbers:</label>
+        <input type="checkbox" id="numbers" checked>
+        <br>
+        <label for="symbols">Include Symbols:</label>
+        <input type="checkbox" id="symbols" checked>
+        <br>
+        <button onclick="generatePassword()">Generate Password</button>
+        <input type="text" id="password" readonly>
+    </div>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const uppercase = document.getElementById('uppercase').checked;
+            const lowercase = document.getElementById('lowercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const symbols = document.getElementById('symbols').checked;
+
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const numberChars = '0123456789';
+            const symbolChars = '!@#$%^&*()-=_+[]{}|;:,.<>?/';
+
+            let chars = '';
+
+            if (uppercase) chars += uppercaseChars;
+            if (lowercase) chars += lowercaseChars;
+            if (numbers) chars += numberChars;
+            if (symbols) chars += symbolChars;
+
+            if (!uppercase && !lowercase && !numbers && !symbols) {
+                alert('Please select at least one option.');
+                return;
+            }
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * chars.length);
+                password += chars.charAt(randomIndex);
+            }
+
+            document.getElementById('password').value = password;
+        }
+    </script>
+</body>
+</html>
