@@ -1,0 +1,88 @@
+
+.container {
+    text-align: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+
+.board button {
+    width: 100px;
+    height: 100px;
+    font-size: 24px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.board button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.board button:focus {
+    outline: none;
+}
+
+.status {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #555;
+}
+
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: none;
+}
+
+
+.board button[data-index]:nth-child(1) {
+    border-top-left-radius: 10px;
+}
+.board button[data-index]:nth-child(3) {
+    border-top-right-radius: 10px;
+}
+.board button[data-index]:nth-child(7) {
+    border-bottom-left-radius: 10px;
+}
+.board button[data-index]:nth-child(9) {
+    border-bottom-right-radius: 10px;
+}
+
+.board button.highlight {
+    background-color: #ffcc00 !important;
+    color: #333 !important; 
+}
