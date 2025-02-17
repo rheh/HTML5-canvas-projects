@@ -1,4 +1,4 @@
-=We code many things including simple clock, timer, map, chess, thermometer, speedometer, map and compass using Javascript, HTML, CSS and more!
+We code many things including simple clock, timer, map, chess, thermometer, speedometer, map and compass using Javascript, HTML, CSS and more!
 
 To run with node:
 
