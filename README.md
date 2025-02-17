@@ -27,6 +27,7 @@ To view the examples:
 [Particles](https://rheh.github.io/HTML5-canvas-projects/particles/).
 [Progress](https://rheh.github.io/HTML5-canvas-projects/progress/).
 [Progress Circle](https://rheh.github.io/HTML5-canvas-projects/progress_circle/).
+[Qaud Tree](https://rheh.github.io/HTML5-canvas-projects/quadtree/).
 [Sand Timer](https://rheh.github.io/HTML5-canvas-projects/sand_timer/).
 [Shooting Game](https://rheh.github.io/HTML5-canvas-projects/shooting-game/).
 [Speedometer](https://rheh.github.io/HTML5-canvas-projects/speedometer/).
