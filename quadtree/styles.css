@@ -1,0 +1,16 @@
+
+.container {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 100%;
+}
+
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    border: 1px solid black;
+}
