@@ -106,3 +106,4 @@ export const setEndButton = {
   },
   clicked: false,
 };
+//updated for practical 6
